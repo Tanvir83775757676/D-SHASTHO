@@ -1,9 +1,12 @@
 import { useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useLang } from '../i18n/LanguageContext'
+import LangSwitcher from '../components/LangSwitcher'
 import styles from './Landing.module.css'
 
 export default function Landing() {
   const nav = useNavigate()
+  const { t } = useLang()
   const sparkRef = useRef(null)
 
   useEffect(() => {
@@ -21,37 +24,34 @@ export default function Landing() {
 
   return (
     <div className={styles.landing}>
-      {/* Navbar */}
       <nav className={styles.nav}>
         <div className={styles.navLogo}>
           <div className={styles.navLogoIcon}>🩺</div>
           <span className={styles.navLogoText}>D-Shastho</span>
         </div>
         <div className={styles.navLinks}>
-          <a href="#features">বৈশিষ্ট্য</a>
-          <a href="#about">আমাদের সম্পর্কে</a>
-          <a href="#contact">যোগাযোগ</a>
+          <a href="#features">{t('nav_features')}</a>
+          <a href="#about">{t('nav_about')}</a>
+          <a href="#contact">{t('nav_contact')}</a>
         </div>
         <div className={styles.navActions}>
-          <button className={styles.navLogin} onClick={() => nav('/dashboard')}>লগইন</button>
-          <button className={styles.navCta} onClick={() => nav('/onboarding')}>বিনামূল্যে শুরু করুন</button>
+          <LangSwitcher />
+          <button className={styles.navLogin} onClick={() => nav('/dashboard')}>{t('nav_login')}</button>
+          <button className={styles.navCta} onClick={() => nav('/onboarding')}>{t('nav_cta')}</button>
         </div>
       </nav>
 
-      {/* Hero */}
       <section className={styles.hero}>
         <div className={styles.heroLeft}>
-          <div className={styles.heroBadge}>🇧🇩 বাংলাদেশের জন্য তৈরি</div>
+          <div className={styles.heroBadge}>{t('hero_badge')}</div>
           <h1 className={styles.heroTitle}>
-            আপনার ডায়াবেটিস<br />
-            <span className={styles.heroTitleAccent}>বুদ্ধিমত্তার সাথে</span><br />
-            নিয়ন্ত্রণ করুন
+            {t('hero_title_1')}<br />
+            {t('hero_title_2') && <>{t('hero_title_2')}<br /></>}
+            <span className={styles.heroTitleAccent}>{t('hero_title_accent')}</span>
           </h1>
-          <p className={styles.heroSub}>
-            AI-চালিত বিশ্লেষণ, বাংলায় ডাক্তার পরামর্শ এবং ব্যক্তিগতকৃত স্বাস্থ্য পরিকল্পনা — সব এক জায়গায়।
-          </p>
+          <p className={styles.heroSub}>{t('hero_sub')}</p>
           <div className={styles.heroStats}>
-            {[['৫০,০০০+','সক্রিয় রোগী'],['২০০+','বিশেষজ্ঞ ডাক্তার'],['৪০+','ল্যাব নেটওয়ার্ক'],['৯৮%','ব্যবহারকারী সন্তুষ্টি']].map(([n,l]) => (
+            {[['50,000+',t('stat_patients')],['200+',t('stat_doctors')],['40+',t('stat_labs')],['98%',t('stat_satisfaction')]].map(([n,l]) => (
               <div key={l} className={styles.hstat}>
                 <div className={styles.hstatNum}>{n}</div>
                 <div className={styles.hstatLabel}>{l}</div>
@@ -59,29 +59,25 @@ export default function Landing() {
             ))}
           </div>
           <div className={styles.heroCtas}>
-            <button className={styles.ctaPrimary} onClick={() => nav('/onboarding')}>
-              বিনামূল্যে শুরু করুন →
-            </button>
-            <button className={styles.ctaSecondary} onClick={() => nav('/dashboard')}>
-              ডেমো দেখুন
-            </button>
+            <button className={styles.ctaPrimary} onClick={() => nav('/onboarding')}>{t('hero_cta_primary')}</button>
+            <button className={styles.ctaSecondary} onClick={() => nav('/dashboard')}>{t('hero_cta_secondary')}</button>
           </div>
         </div>
 
         <div className={styles.heroRight}>
           <div className={`${styles.heroCard} animate-float`}>
             <div className={styles.hcardHeader}>
-              <span className={styles.hcardTitle}>📊 আজকের রক্তে শর্করা</span>
-              <span className={styles.hcardDate}>৫ মে, ২০২৬</span>
+              <span className={styles.hcardTitle}>{t('card_title')}</span>
+              <span className={styles.hcardDate}>5 May, 2026</span>
             </div>
             <div className={styles.hcardGlucose}>
-              <div className={styles.hcardNum}>১১২</div>
-              <div className={styles.hcardUnit}>mg/dL — খালি পেটে</div>
-              <span className={styles.hcardStatus}>✓ স্বাভাবিক মাত্রা</span>
+              <div className={styles.hcardNum}>112</div>
+              <div className={styles.hcardUnit}>{t('card_unit')}</div>
+              <span className={styles.hcardStatus}>{t('card_status')}</span>
             </div>
             <div className={styles.sparkline} ref={sparkRef} />
             <div className={styles.hcardMetrics}>
-              {[['HbA1c','৬.৮','%'],['ওজন','৭২','kg'],['পদক্ষেপ','৬.২','k'],['পরবর্তী ওষুধ','৮:০০','PM']].map(([l,v,u]) => (
+              {[[t('card_hba1c'),'6.8','%'],[t('card_weight'),'72','kg'],[t('card_steps'),'6.2','k'],[t('card_next_med'),'8:00','PM']].map(([l,v,u]) => (
                 <div key={l} className={styles.hcardMetric}>
                   <div className={styles.hmLabel}>{l}</div>
                   <div className={styles.hmValue}>{v}<span className={styles.hmUnit}>{u}</span></div>
@@ -92,20 +88,19 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Features */}
       <section id="features" className={styles.features}>
         <div className={styles.sectionHead}>
-          <h2 className={styles.sectionTitle}>কেন D-Shastho?</h2>
-          <p className={styles.sectionSub}>বাংলাদেশের প্রথম সম্পূর্ণ ডায়াবেটিস ব্যবস্থাপনা সমাধান</p>
+          <h2 className={styles.sectionTitle}>{t('features_heading')}</h2>
+          <p className={styles.sectionSub}>{t('features_sub')}</p>
         </div>
         <div className={styles.featGrid}>
           {[
-            { icon:'🤖', title:'AI-চালিত বিশ্লেষণ', desc:'আপনার গ্লুকোজ প্যাটার্ন বিশ্লেষণ করে ব্যক্তিগতকৃত পরামর্শ দেয়।' },
-            { icon:'👨‍⚕️', title:'বিশেষজ্ঞ ডাক্তার', desc:'২০০+ এন্ডোক্রিনোলজিস্ট ও পুষ্টিবিদের সাথে অনলাইন পরামর্শ।' },
-            { icon:'📊', title:'রিয়েল-টাইম মনিটরিং', desc:'CGM ডিভাইস ও ম্যানুয়াল লগিং — সব একত্রে ট্র্যাক করুন।' },
-            { icon:'🍛', title:'বাংলা খাদ্য গাইড', desc:'স্থানীয় খাবারের GI সূচক, পুষ্টি তথ্য ও ডায়েট পরিকল্পনা।' },
-            { icon:'💊', title:'ওষুধ রিমাইন্ডার', desc:'সময়মতো ওষুধ খাওয়ার স্মার্ট রিমাইন্ডার সিস্টেম।' },
-            { icon:'📋', title:'স্বাস্থ্য রিপোর্ট', desc:'ডাক্তারের সাথে শেয়ারযোগ্য বিস্তারিত স্বাস্থ্য রিপোর্ট।' },
+            {icon:'🤖',title:t('feat1_title'),desc:t('feat1_desc')},
+            {icon:'👨‍⚕️',title:t('feat2_title'),desc:t('feat2_desc')},
+            {icon:'📊',title:t('feat3_title'),desc:t('feat3_desc')},
+            {icon:'🍛',title:t('feat4_title'),desc:t('feat4_desc')},
+            {icon:'💊',title:t('feat5_title'),desc:t('feat5_desc')},
+            {icon:'📋',title:t('feat6_title'),desc:t('feat6_desc')},
           ].map(f => (
             <div key={f.title} className={styles.featCard}>
               <div className={styles.featIcon}>{f.icon}</div>
@@ -116,21 +111,15 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* CTA Banner */}
       <section className={styles.ctaBanner}>
-        <h2>আজই শুরু করুন — সম্পূর্ণ বিনামূল্যে</h2>
-        <p>১৪ দিনের বিনামূল্যে ট্রায়াল · কোনো ক্রেডিট কার্ড প্রয়োজন নেই</p>
-        <button className={styles.ctaPrimary} onClick={() => nav('/onboarding')}>
-          বিনামূল্যে অ্যাকাউন্ট খুলুন →
-        </button>
+        <h2>{t('cta_heading')}</h2>
+        <p>{t('cta_sub')}</p>
+        <button className={styles.ctaPrimary} onClick={() => nav('/onboarding')}>{t('cta_btn')}</button>
       </section>
 
-      {/* Footer */}
       <footer className={styles.footer}>
-        <div className={styles.footerLogo}>
-          <span>🩺</span> D-Shastho
-        </div>
-        <p className={styles.footerText}>© ২০২৬ D-Shastho · বাংলাদেশ · সর্বস্বত্ব সংরক্ষিত</p>
+        <div className={styles.footerLogo}><span>🩺</span> D-Shastho</div>
+        <p className={styles.footerText}>{t('footer_copy')}</p>
       </footer>
     </div>
   )

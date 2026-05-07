@@ -1,54 +1,54 @@
 import { useState } from 'react'
+import { useLang } from '../../i18n/LanguageContext'
 import s from './HomePanel.module.css'
 
-const STATS = [
-  { accent:'teal',  icon:'💧', label:'ফাস্টিং গ্লুকোজ',   value:'১১২', unit:'mg/dL · আজ সকাল ৭:১০', change:'↓ ৮ গতকালের চেয়ে',            type:'good' },
-  { accent:'amber', icon:'🍽️', label:'খাবার পরের গ্লুকোজ', value:'১৫৬', unit:'mg/dL · দুপুরের পরে',   change:'↓ ৪২ ডিনার পিক থেকে',         type:'good' },
-  { accent:'green', icon:'📈', label:'৭-দিনের গড়',        value:'১৩১', unit:'mg/dL · সাপ্তাহিক গড়',  change:'↓ ৫ গত সপ্তাহের চেয়ে',        type:'good' },
-  { accent:'coral', icon:'⚖️', label:'ওজন',               value:'৭২.৪', unit:'kg · BMI: ২৫.১',       change:'→ এই সপ্তাহে কোনো পরিবর্তন নেই', type:'warn' },
-]
-
-const MEDS = [
-  { name:'মেটফর্মিন',       dose:'৫০০mg · সকালের খাবারের পরে', time:'সকাল ৮:০০', done:true,  color:'#0A6E6E' },
-  { name:'গ্লিবেনক্লামাইড', dose:'৫mg · দুপুরের খাবারের আগে', time:'দুপুর ১:০০', done:true,  color:'#F0A500' },
-  { name:'মেটফর্মিন',       dose:'৫০০mg · রাতের খাবারের পরে',  time:'রাত ৮:০০',  done:false, color:'#E8553E' },
-]
-
-const MEALS = [
-  { emoji:'🌾', name:'ওটস + কলা',       cal:'সকালের খাবার · ৩২০ কিলোক্যালরি', gi:'কম GI',    giType:'low' },
-  { emoji:'🍛', name:'ভাত + মসুর ডাল', cal:'দুপুরের খাবার · ৫৮০ কিলোক্যালরি', gi:'মাঝারি GI', giType:'med' },
-  { emoji:'🍎', name:'আপেল (১টি)',       cal:'স্ন্যাক · ৯৫ কিলোক্যালরি',       gi:'কম GI',    giType:'low' },
-]
-
-const DOCTORS = [
-  { name:'ডা. সামিয়া রহমান', role:'এন্ডোক্রিনোলজিস্ট', time:'আজ বিকাল ৪:০০', status:'online', initial:'স' },
-  { name:'ডা. কামাল হোসেন',  role:'পুষ্টিবিদ',           time:'বৃহস্পতিবার',   status:'busy',   initial:'ক' },
-]
-
-const SVG_POINTS = [
-  [0,60],[30,45],[60,50],[90,30],[120,38],[150,55],[180,40],[210,35],[240,42],[270,28],[300,32]
-]
+const SVG_POINTS = [[0,60],[30,45],[60,50],[90,30],[120,38],[150,55],[180,40],[210,35],[240,42],[270,28],[300,32]]
 
 export default function HomePanel() {
-  const [meds, setMeds] = useState(MEDS)
+  const { t } = useLang()
   const [showAlert, setShowAlert] = useState(true)
 
+  const STATS = [
+    { accent:'teal',  icon:'💧', label:t('hp_stat1_label'), value:'112', unit:t('hp_stat1_unit'), change:t('hp_stat1_change'), type:'good' },
+    { accent:'amber', icon:'🍽️', label:t('hp_stat2_label'), value:'156', unit:t('hp_stat2_unit'), change:t('hp_stat2_change'), type:'good' },
+    { accent:'green', icon:'📈', label:t('hp_stat3_label'), value:'131', unit:t('hp_stat3_unit'), change:t('hp_stat3_change'), type:'good' },
+    { accent:'coral', icon:'⚖️', label:t('hp_stat4_label'), value:'72.4', unit:t('hp_stat4_unit'), change:t('hp_stat4_change'), type:'warn' },
+  ]
+
+  const MEDS = [
+    { name:t('hp_med1_name'), dose:t('hp_med1_dose'), time:t('hp_med1_time'), done:true,  color:'#0A6E6E' },
+    { name:t('hp_med2_name'), dose:t('hp_med2_dose'), time:t('hp_med2_time'), done:true,  color:'#F0A500' },
+    { name:t('hp_med3_name'), dose:t('hp_med3_dose'), time:t('hp_med3_time'), done:false, color:'#E8553E' },
+  ]
+
+  const MEALS = [
+    { emoji:'🌾', name:t('hp_meal1_name'), cal:t('hp_meal1_cal'), gi:t('hp_meal1_gi'), giType:'low' },
+    { emoji:'🍛', name:t('hp_meal2_name'), cal:t('hp_meal2_cal'), gi:t('hp_meal2_gi'), giType:'med' },
+    { emoji:'🍎', name:t('hp_meal3_name'), cal:t('hp_meal3_cal'), gi:t('hp_meal3_gi'), giType:'low' },
+  ]
+
+  const DOCTORS = [
+    { name:t('hp_doc1_name'), role:t('hp_doc1_role'), time:t('hp_doc1_time'), status:'online', initial:'S' },
+    { name:t('hp_doc2_name'), role:t('hp_doc2_role'), time:t('hp_doc2_time'), status:'busy',   initial:'K' },
+  ]
+
+  const [meds, setMeds] = useState(MEDS)
   const toggleMed = i => setMeds(prev => prev.map((m, idx) => idx === i ? {...m, done:!m.done} : m))
 
   const svgPath = 'M ' + SVG_POINTS.map(([x,y]) => `${x},${y}`).join(' L ')
-  const svgFill = 'M ' + SVG_POINTS.map(([x,y]) => `${x},${y}`).join(' L ') + ` L ${SVG_POINTS[SVG_POINTS.length-1][0]},80 L 0,80 Z`
+  const svgFill = svgPath + ` L ${SVG_POINTS[SVG_POINTS.length-1][0]},80 L 0,80 Z`
+  const days = t('hp_days')
 
   return (
     <div className={s.panel}>
       {showAlert && (
         <div className={s.alert}>
           <span>⚠️</span>
-          <span>আপনার আজকের রাতের গ্লুকোজ পরীক্ষা এখনো দেওয়া হয়নি। মেটফর্মিন খাওয়ার আগে পরিমাপ করুন।</span>
+          <span>{t('hp_alert')}</span>
           <button onClick={() => setShowAlert(false)}>✕</button>
         </div>
       )}
 
-      {/* Stats */}
       <div className={s.statsRow}>
         {STATS.map(st => (
           <div key={st.label} className={`${s.statCard} ${s['accent_'+st.accent]}`}>
@@ -64,13 +64,12 @@ export default function HomePanel() {
       </div>
 
       <div className={s.twoCol}>
-        {/* Glucose Chart */}
         <div className={s.card}>
           <div className={s.cardHead}>
-            <span className={s.cardTitle}>📈 গ্লুকোজ ট্রেন্ড (৭ দিন)</span>
+            <span className={s.cardTitle}>{t('hp_chart_title')}</span>
             <div className={s.chartLegend}>
-              <span className={s.legendDot} style={{background:'#0A6E6E'}} />ফাস্টিং
-              <span className={s.legendDot} style={{background:'#F0A500'}} />খাবার পরে
+              <span className={s.legendDot} style={{background:'#0A6E6E'}} />{t('hp_fasting')}
+              <span className={s.legendDot} style={{background:'#F0A500'}} />{t('hp_postmeal')}
             </div>
           </div>
           <svg viewBox="0 0 300 80" className={s.svg} preserveAspectRatio="none">
@@ -80,61 +79,45 @@ export default function HomePanel() {
                 <stop offset="100%" stopColor="#0A6E6E" stopOpacity="0" />
               </linearGradient>
             </defs>
-            {/* Target zone */}
             <rect x="0" y="20" width="300" height="30" fill="rgba(26,138,90,0.06)" rx="4" />
-            <text x="302" y="30" fontSize="6" fill="#1A8A5A">১৮০</text>
-            <text x="302" y="55" fontSize="6" fill="#1A8A5A">৭০</text>
-            {/* Fill */}
             <path d={svgFill} fill="url(#grad)" />
-            {/* Line */}
             <path d={svgPath} fill="none" stroke="#0A6E6E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            {/* Points */}
             {SVG_POINTS.map(([x,y],i) => (
-              <circle key={i} cx={x} cy={y} r="3" fill={i === SVG_POINTS.length-1 ? '#E8553E' : '#0A6E6E'} stroke="white" strokeWidth="1.5" />
+              <circle key={i} cx={x} cy={y} r="3" fill={i===SVG_POINTS.length-1?'#E8553E':'#0A6E6E'} stroke="white" strokeWidth="1.5" />
             ))}
           </svg>
-          <div className={s.chartXLabels}>
-            {['রবি','সোম','মঙ্গল','বুধ','বৃহ','শুক্র','শনি'].map(d => (
-              <span key={d}>{d}</span>
-            ))}
-          </div>
+          <div className={s.chartXLabels}>{days.map(d => <span key={d}>{d}</span>)}</div>
         </div>
 
-        {/* Activity Ring + Medications */}
         <div className={s.rightCol}>
-          {/* Activity */}
           <div className={s.card}>
-            <div className={s.cardHead}><span className={s.cardTitle}>🏃 আজকের কার্যকলাপ</span></div>
+            <div className={s.cardHead}><span className={s.cardTitle}>{t('hp_activity_title')}</span></div>
             <div className={s.activityRow}>
               <svg viewBox="0 0 80 80" className={s.ring}>
                 <circle cx="40" cy="40" r="30" fill="none" stroke="var(--mist)" strokeWidth="8" />
                 <circle cx="40" cy="40" r="30" fill="none" stroke="#0A6E6E" strokeWidth="8"
-                  strokeDasharray={`${188.5 * 0.68} ${188.5}`} strokeLinecap="round"
+                  strokeDasharray={`${188.5*0.68} ${188.5}`} strokeLinecap="round"
                   strokeDashoffset="47" transform="rotate(-90 40 40)" />
-                <text x="40" y="38" textAnchor="middle" fontSize="11" fontWeight="700" fill="var(--ink)">৬.২k</text>
-                <text x="40" y="50" textAnchor="middle" fontSize="7" fill="var(--ink-soft)">পদক্ষেপ</text>
+                <text x="40" y="38" textAnchor="middle" fontSize="11" fontWeight="700" fill="var(--ink)">6.2k</text>
+                <text x="40" y="50" textAnchor="middle" fontSize="7" fill="var(--ink-soft)">{t('hp_steps')}</text>
               </svg>
               <div className={s.activityStats}>
-                {[['🔥','ক্যালরি','৩২০ kcal'],['⏱️','সময়','৪৮ মিনিট'],['🎯','লক্ষ্য','৬৮%']].map(([ic,lb,vl]) => (
+                {[['🔥',t('hp_calories'),'320 kcal'],['⏱️',t('hp_duration'),t('hp_48min')],['🎯',t('hp_goal'),'68%']].map(([ic,lb,vl]) => (
                   <div key={lb} className={s.actStat}>
                     <span>{ic}</span>
-                    <div>
-                      <div className={s.actVal}>{vl}</div>
-                      <div className={s.actLabel}>{lb}</div>
-                    </div>
+                    <div><div className={s.actVal}>{vl}</div><div className={s.actLabel}>{lb}</div></div>
                   </div>
                 ))}
               </div>
             </div>
           </div>
 
-          {/* Medications */}
           <div className={s.card}>
-            <div className={s.cardHead}><span className={s.cardTitle}>💊 আজকের ওষুধ</span></div>
+            <div className={s.cardHead}><span className={s.cardTitle}>{t('hp_meds_title')}</span></div>
             <div className={s.medList}>
               {meds.map((m, i) => (
-                <div key={i} className={`${s.medItem} ${m.done ? s.medDone : ''}`}>
-                  <button className={s.medCheck} style={{borderColor: m.done ? m.color : undefined, background: m.done ? m.color : undefined}} onClick={() => toggleMed(i)}>
+                <div key={i} className={`${s.medItem} ${m.done?s.medDone:''}`}>
+                  <button className={s.medCheck} style={{borderColor:m.done?m.color:undefined,background:m.done?m.color:undefined}} onClick={() => toggleMed(i)}>
                     {m.done && '✓'}
                   </button>
                   <div className={s.medInfo}>
@@ -150,9 +133,8 @@ export default function HomePanel() {
       </div>
 
       <div className={s.twoCol}>
-        {/* Meals */}
         <div className={s.card}>
-          <div className={s.cardHead}><span className={s.cardTitle}>🍛 আজকের খাবার</span><button className={s.addBtn}>+ যোগ করুন</button></div>
+          <div className={s.cardHead}><span className={s.cardTitle}>{t('hp_meals_title')}</span><button className={s.addBtn}>{t('hp_meals_add')}</button></div>
           <div className={s.mealList}>
             {MEALS.map(m => (
               <div key={m.name} className={s.mealItem}>
@@ -167,9 +149,8 @@ export default function HomePanel() {
           </div>
         </div>
 
-        {/* Doctors */}
         <div className={s.card}>
-          <div className={s.cardHead}><span className={s.cardTitle}>👨‍⚕️ আমার ডাক্তার</span></div>
+          <div className={s.cardHead}><span className={s.cardTitle}>{t('hp_doctors_title')}</span></div>
           <div className={s.docList}>
             {DOCTORS.map(d => (
               <div key={d.name} className={s.docItem}>
@@ -180,7 +161,7 @@ export default function HomePanel() {
                   <div className={s.docTime}>⏰ {d.time}</div>
                 </div>
                 <div className={`${s.docStatus} ${s['status_'+d.status]}`}>
-                  {d.status === 'online' ? 'অনলাইন' : 'ব্যস্ত'}
+                  {d.status === 'online' ? t('hp_online') : t('hp_busy')}
                 </div>
               </div>
             ))}

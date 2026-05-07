@@ -1,0 +1,42 @@
+.panel { padding: 24px 32px; display: flex; flex-direction: column; gap: 20px; }
+
+.statsRow { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+.statCard { background: white; border-radius: 16px; padding: 18px; box-shadow: var(--shadow-sm); }
+.statTop { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.statIcon { font-size: 20px; }
+.badge { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 999px; }
+.badgeGood { background: var(--green-light); color: var(--green); }
+.badgeWarn { background: var(--amber-light); color: #8B6000; }
+.statVal { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 600; color: var(--ink); }
+.statUnit { font-size: 14px; color: var(--ink-soft); margin-left: 4px; }
+.statLabel { font-size: 12px; color: var(--ink-soft); margin-top: 4px; }
+
+.actionRow { display: flex; gap: 12px; flex-wrap: wrap; }
+.btnPrimary { background: var(--teal); color: white; border: none; padding: 12px 22px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.btnPrimary:hover { background: var(--teal-light); transform: translateY(-1px); }
+.btnSecondary { background: white; border: 1.5px solid var(--border); color: var(--ink-mid); padding: 11px 20px; border-radius: 10px; font-size: 13px; cursor: pointer; transition: all 0.2s; }
+.btnSecondary:hover { border-color: var(--teal); color: var(--teal); }
+
+.card { background: white; border-radius: 16px; padding: 24px; box-shadow: var(--shadow-sm); }
+.cardHead { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.cardTitle { font-size: 15px; font-weight: 600; color: var(--ink); }
+.cardSub { font-size: 12px; color: var(--ink-soft); }
+
+.reportList { display: flex; flex-direction: column; gap: 12px; }
+.reportItem {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px; border-radius: 12px; border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+.reportItem:hover { box-shadow: var(--shadow-sm); border-color: var(--teal); }
+.reportIcon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.reportInfo { flex: 1; }
+.reportTitle { font-size: 14px; font-weight: 600; color: var(--ink); }
+.reportMeta { font-size: 12px; color: var(--ink-soft); margin-top: 3px; }
+.downloadBtn { background: var(--teal-pale); color: var(--teal); border: none; padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+.downloadBtn:hover { background: var(--teal); color: white; }
+.shareBtn { background: var(--mist); color: var(--ink-soft); border: none; padding: 8px 14px; border-radius: 8px; font-size: 12px; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+.shareBtn:hover { background: var(--border); }
+
+@media (max-width: 1100px) { .statsRow { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 700px) { .statsRow { grid-template-columns: 1fr; } .panel { padding: 16px; } }

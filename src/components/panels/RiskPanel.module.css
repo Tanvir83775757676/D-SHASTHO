@@ -1,0 +1,40 @@
+.panel { padding: 24px 32px; display: flex; flex-direction: column; gap: 24px; }
+
+.riskHero {
+  display: flex; align-items: center; justify-content: space-between; gap: 32px;
+  background: white; border-radius: 20px; padding: 32px; box-shadow: var(--shadow-sm);
+}
+.riskLeft { flex: 1; max-width: 420px; }
+.riskBadge { display: inline-block; background: var(--teal-pale); color: var(--teal); font-size: 12px; font-weight: 600; padding: 5px 14px; border-radius: 999px; margin-bottom: 16px; }
+.riskScore { font-family: 'Fraunces', serif; font-size: 64px; font-weight: 600; color: var(--ink); line-height: 1; }
+.riskMax { font-size: 24px; color: var(--ink-soft); }
+.riskLabel { font-size: 16px; font-weight: 600; color: var(--amber); margin: 6px 0 12px; }
+.riskDesc { font-size: 13px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 16px; }
+.riskTrend { display: flex; align-items: center; gap: 10px; }
+.riskTrendVal { font-size: 14px; font-weight: 600; color: var(--green); background: var(--green-light); padding: 4px 12px; border-radius: 999px; }
+.riskTrendLabel { font-size: 12px; color: var(--ink-soft); }
+
+.riskRight { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.riskGauge { width: 180px; }
+.riskLegend { display: flex; align-items: center; gap: 10px; font-size: 11px; color: var(--ink-soft); }
+.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 2px; }
+
+.sectionTitle { font-size: 15px; font-weight: 600; color: var(--ink); }
+
+.cardGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.lifestyleCard { background: white; border-radius: 14px; padding: 18px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 12px; }
+.lcTop { display: flex; align-items: center; gap: 12px; }
+.lcIcon { font-size: 24px; flex-shrink: 0; }
+.lcInfo { flex: 1; }
+.lcTitle { font-size: 13px; font-weight: 600; color: var(--ink); }
+.lcDesc { font-size: 12px; color: var(--ink-soft); margin-top: 2px; }
+.lcPct { font-size: 15px; font-weight: 700; flex-shrink: 0; }
+
+.progressTrack { height: 6px; background: var(--mist); border-radius: 999px; overflow: hidden; }
+.progressFill { height: 100%; border-radius: 999px; transition: width 0.5s ease; }
+
+@media (max-width: 900px) {
+  .riskHero { flex-direction: column; }
+  .cardGrid { grid-template-columns: 1fr; }
+  .panel { padding: 16px; }
+}

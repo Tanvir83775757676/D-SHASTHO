@@ -1,0 +1,38 @@
+.switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.08);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  transition: all 0.2s;
+  font-family: inherit;
+  letter-spacing: 0.02em;
+}
+.switcher:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.5);
+}
+
+.option { transition: color 0.2s; }
+.active  { color: white; }
+.divider { opacity: 0.3; font-weight: 300; }
+
+/* Light variant — for sidebar/dashboard (dark bg) already works above */
+/* Teal/light bg variant */
+.variant_light {
+  border-color: var(--border);
+  background: var(--mist);
+  color: var(--ink-soft);
+}
+.variant_light:hover {
+  border-color: var(--teal);
+  background: var(--teal-pale);
+}
+.variant_light .active { color: var(--teal); }
+.variant_light .divider { color: var(--border); }

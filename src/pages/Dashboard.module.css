@@ -37,6 +37,7 @@
 .navBadge { margin-left: auto; background: var(--coral); color: white; font-size: 10px; font-weight: 700; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 
 .spacer { flex: 1; }
+.langWrap { padding: 0 8px; margin-bottom: 8px; }
 
 .sidebarUser { display: flex; align-items: center; gap: 10px; padding: 12px; background: rgba(255,255,255,0.07); border-radius: 10px; margin-top: 12px; }
 .avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--teal); color: white; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600; flex-shrink: 0; }

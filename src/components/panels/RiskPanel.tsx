@@ -1,4 +1,5 @@
 'use client'
+import { PersonStanding, Utensils, BedDouble, Brain, Pill, Stethoscope } from 'lucide-react'
 import { useLang } from '@/i18n/LanguageContext'
 import s from '@/components/panels/RiskPanel.module.css'
 
@@ -6,12 +7,12 @@ export default function RiskPanel() {
   const { t } = useLang()
 
   const LIFESTYLE = [
-    { icon:'🏃', titleKey:'risk_l1_title', descKey:'risk_l1_desc', progress:68, color:'#0A6E6E' },
-    { icon:'🍛', titleKey:'risk_l2_title', descKey:'risk_l2_desc', progress:75, color:'#1A8A5A' },
-    { icon:'😴', titleKey:'risk_l3_title', descKey:'risk_l3_desc', progress:50, color:'#F0A500' },
-    { icon:'🧘', titleKey:'risk_l4_title', descKey:'risk_l4_desc', progress:40, color:'#E8553E' },
-    { icon:'💊', titleKey:'risk_l5_title', descKey:'risk_l5_desc', progress:87, color:'#0D8A8A' },
-    { icon:'🩺', titleKey:'risk_l6_title', descKey:'risk_l6_desc', progress:60, color:'#5A70C0' },
+    { Icon:PersonStanding, titleKey:'risk_l1_title', descKey:'risk_l1_desc', progress:68, color:'#0A6E6E' },
+    { Icon:Utensils,       titleKey:'risk_l2_title', descKey:'risk_l2_desc', progress:75, color:'#1A8A5A' },
+    { Icon:BedDouble,      titleKey:'risk_l3_title', descKey:'risk_l3_desc', progress:50, color:'#F0A500' },
+    { Icon:Brain,          titleKey:'risk_l4_title', descKey:'risk_l4_desc', progress:40, color:'#E8553E' },
+    { Icon:Pill,           titleKey:'risk_l5_title', descKey:'risk_l5_desc', progress:87, color:'#0D8A8A' },
+    { Icon:Stethoscope,    titleKey:'risk_l6_title', descKey:'risk_l6_desc', progress:60, color:'#5A70C0' },
   ]
 
   return (
@@ -48,7 +49,7 @@ export default function RiskPanel() {
         {LIFESTYLE.map(l => (
           <div key={l.titleKey} className={s.lifestyleCard}>
             <div className={s.lcTop}>
-              <span className={s.lcIcon}>{l.icon}</span>
+              <span className={s.lcIcon}><l.Icon size={20} style={{color:l.color}} /></span>
               <div className={s.lcInfo}>
                 <div className={s.lcTitle}>{t(l.titleKey)}</div>
                 <div className={s.lcDesc}>{t(l.descKey)}</div>
@@ -64,4 +65,3 @@ export default function RiskPanel() {
     </div>
   )
 }
-

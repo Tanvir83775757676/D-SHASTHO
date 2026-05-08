@@ -56,3 +56,4 @@
 .planCheck { color: #1A8A5A; font-weight: 700; }
 .upgradeBtn { background: linear-gradient(135deg, #0A6E6E, #1A8A5A); color: #fff; border: none; border-radius: 10px; padding: 12px; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.9rem; cursor: pointer; }
 .cancelBtn { background: none; border: 1px solid var(--mist); border-radius: 10px; padding: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; color: var(--ink-soft); cursor: pointer; }
+

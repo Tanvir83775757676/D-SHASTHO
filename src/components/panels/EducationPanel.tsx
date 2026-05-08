@@ -142,7 +142,7 @@ export default function EducationPanel() {
             <div className={s.quizResult}>
               <div className={s.resultIcon}><ResultIcon /></div>
               <div className={s.resultScore}>{score}/{QUIZ.length}</div>
-              <div className={s.resultLabel}>{score === QUIZ.length ? 'Perfect Score!' : score >= 2 ? 'Good Job!' : 'Keep Learning!'}</div>
+              <div className={s.resultLabel}>{score === QUIZ.length ? "Perfect Score!" : score >= 2 ? "Good Job!" : "Keep Learning!"}</div>
               <div className={s.resultAnswers}>
                 {QUIZ.map((q, i) => (
                   <div key={i} className={`${s.resultRow} ${quizAnswers[i] === q.answer ? s.resultCorrect : s.resultWrong}`}>

@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { Droplets, Scale, Heart, X } from 'lucide-react'
 import { useLang } from '../i18n/LanguageContext'
 import s from '@/components/LogModal.module.css'
 
@@ -11,9 +12,9 @@ export default function LogModal({ onClose, onSave }) {
   const [bp, setBp]           = useState({ sys:'', dia:'', pulse:'', note:'' })
 
   const TABS = [
-    { id:'glucose', icon:'💧', label:t('log_glucose') },
-    { id:'weight',  icon:'⚖️', label:t('log_weight') },
-    { id:'bp',      icon:'❤️', label:t('log_bp') },
+    { id:'glucose', Icon:Droplets, label:t('log_glucose') },
+    { id:'weight',  Icon:Scale,    label:t('log_weight') },
+    { id:'bp',      Icon:Heart,    label:t('log_bp') },
   ]
 
   return (
@@ -21,12 +22,12 @@ export default function LogModal({ onClose, onSave }) {
       <div className={s.modal}>
         <div className={s.header}>
           <h3 className={s.title}>{t('log_title')}</h3>
-          <button className={s.closeBtn} onClick={onClose}>✕</button>
+          <button className={s.closeBtn} onClick={onClose}><X size={18} /></button>
         </div>
         <div className={s.tabs}>
           {TABS.map(tb => (
             <button key={tb.id} className={`${s.tab} ${tab===tb.id?s.tabActive:''}`} onClick={() => setTab(tb.id)}>
-              {tb.icon} {tb.label}
+              <tb.Icon size={15} /> {tb.label}
             </button>
           ))}
         </div>
@@ -98,4 +99,3 @@ export default function LogModal({ onClose, onSave }) {
     </div>
   )
 }
-

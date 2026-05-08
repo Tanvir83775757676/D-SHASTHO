@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import {
-  LayoutDashboard, FileText, ShieldCheck, Stethoscope,
+  LayoutDashboard, FileText, ShieldCheck, Stethoscope, Check,
   FlaskConical, Pill, Users, BookOpen, LogOut,
   Bell, Settings, Plus, Activity
 } from 'lucide-react'

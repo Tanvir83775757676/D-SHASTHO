@@ -1,0 +1,62 @@
+.panel { display: flex; flex-direction: column; gap: 20px; }
+.tabs { display: flex; gap: 8px; border-bottom: 1px solid var(--mist); padding-bottom: 12px; }
+.tab { background: none; border: 1px solid transparent; border-radius: 8px; padding: 8px 16px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; color: var(--ink-soft); cursor: pointer; transition: all 0.15s; }
+.tab:hover { background: var(--mist); color: var(--ink); }
+.tabActive { background: var(--teal-dim); color: var(--teal); border-color: var(--teal-dim); }
+.sectionDesc { color: var(--ink-soft); font-size: 0.875rem; margin-bottom: 16px; }
+.testGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+.testCard { background: var(--snow); border: 1px solid var(--mist); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+.testUrgent { border-color: #E8553E40; background: #E8553E08; }
+.testTop { display: flex; justify-content: space-between; align-items: center; }
+.testIcon { font-size: 1.6rem; }
+.urgentBadge { background: #E8553E20; color: #E8553E; font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 99px; }
+.testName { font-weight: 600; color: var(--ink); font-size: 0.95rem; }
+.testPurpose { color: var(--ink-soft); font-size: 0.8rem; line-height: 1.4; }
+.testMeta { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }
+.testPrice { font-weight: 700; color: var(--teal); font-size: 1rem; }
+.testDue { font-size: 0.75rem; color: var(--ink-soft); }
+.testDueUrgent { color: #E8553E; font-weight: 600; }
+.bookBtn { background: var(--teal); color: #fff; border: none; border-radius: 8px; padding: 9px 0; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: opacity 0.15s; margin-top: auto; }
+.bookBtn:hover { opacity: 0.88; }
+.empty { text-align: center; color: var(--ink-soft); padding: 48px 0; font-size: 0.9rem; }
+.bookedList { display: flex; flex-direction: column; gap: 12px; }
+.bookedCard { background: var(--snow); border: 1px solid var(--mist); border-radius: 12px; padding: 16px 20px; display: flex; align-items: center; gap: 16px; }
+.bookedLine { width: 4px; height: 48px; border-radius: 4px; flex-shrink: 0; }
+.bookedInfo { flex: 1; }
+.bookedTest { font-weight: 600; color: var(--ink); font-size: 0.95rem; }
+.bookedMeta { color: var(--ink-soft); font-size: 0.8rem; margin-top: 4px; }
+.bookedStatus { font-size: 0.8rem; font-weight: 600; padding: 4px 10px; border-radius: 99px; white-space: nowrap; }
+.statusConfirmed { background: #1A8A5A20; color: #1A8A5A; }
+.statusPending { background: #F0A50020; color: #F0A500; }
+.bookedActions { display: flex; gap: 8px; }
+.btnView { background: var(--teal); color: #fff; border: none; border-radius: 7px; padding: 7px 14px; font-size: 0.8rem; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer; }
+.btnCancel { background: none; border: 1px solid var(--mist); border-radius: 7px; padding: 7px 14px; font-size: 0.8rem; color: var(--ink-soft); font-family: 'DM Sans', sans-serif; cursor: pointer; }
+.labGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.labCard { background: var(--snow); border: 1px solid var(--mist); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+.labTop { display: flex; align-items: flex-start; gap: 12px; }
+.labLogo { font-size: 1.8rem; }
+.labInfo { flex: 1; }
+.labName { font-weight: 600; color: var(--ink); font-size: 0.9rem; }
+.labLocations { font-size: 0.78rem; color: var(--ink-soft); margin-top: 2px; }
+.discountBadge { background: #1A8A5A20; color: #1A8A5A; font-size: 0.75rem; font-weight: 700; padding: 3px 8px; border-radius: 99px; white-space: nowrap; }
+.labStats { display: flex; gap: 16px; font-size: 0.82rem; color: var(--ink-soft); }
+/* Overlay & Modal */
+.overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 100; }
+.modal { background: #fff; border-radius: 16px; padding: 28px; width: 90%; max-width: 460px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+.modalHeader { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.modalTitle { font-weight: 700; font-size: 1.05rem; color: var(--ink); }
+.modalClose { background: none; border: none; font-size: 1.1rem; cursor: pointer; color: var(--ink-soft); }
+.modalDesc { color: var(--ink-soft); font-size: 0.85rem; margin-bottom: 16px; }
+.modalSection { font-weight: 600; font-size: 0.8rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.05em; margin: 14px 0 8px; }
+.labOptions { display: flex; flex-direction: column; gap: 6px; }
+.labOption { background: var(--snow); border: 1px solid var(--mist); border-radius: 8px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: 0.875rem; font-family: 'DM Sans', sans-serif; text-align: left; transition: all 0.15s; }
+.labOptionSelected { border-color: var(--teal); background: var(--teal-dim); }
+.optionDiscount { font-weight: 600; color: #1A8A5A; font-size: 0.8rem; }
+.dateInput { width: 100%; border: 1px solid var(--mist); border-radius: 8px; padding: 10px 12px; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; color: var(--ink); background: var(--snow); box-sizing: border-box; }
+.timeSlots { display: flex; flex-wrap: wrap; gap: 8px; }
+.timeSlot { background: var(--snow); border: 1px solid var(--mist); border-radius: 8px; padding: 7px 14px; font-size: 0.82rem; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all 0.15s; }
+.timeSlot:hover { border-color: var(--teal); color: var(--teal); }
+.modalActions { display: flex; gap: 10px; margin-top: 20px; }
+.btnConfirm { flex: 1; background: var(--teal); color: #fff; border: none; border-radius: 8px; padding: 11px; font-weight: 600; font-size: 0.9rem; font-family: 'DM Sans', sans-serif; cursor: pointer; }
+.btnConfirm:disabled { opacity: 0.4; cursor: not-allowed; }
+.toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%); background: #1A8A5A; color: #fff; font-weight: 600; padding: 12px 24px; border-radius: 99px; font-size: 0.875rem; box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 200; white-space: nowrap; }

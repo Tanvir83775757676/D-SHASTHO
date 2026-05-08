@@ -75,7 +75,7 @@ export default function MedsPanel() {
       {tab === 'today' && (
         <div className={s.card}>
           <div className={s.cardHead}>
-            <span className={s.cardTitle}><Pill size={16} /> Today's Medication Schedule</span>
+            <span className={s.cardTitle}><Pill size={16} /> Today&apos;s Medication Schedule</span>
             <span className={s.cardSub}>{takenCount} of {totalDoses} taken</span>
           </div>
           <div className={s.todayList}>

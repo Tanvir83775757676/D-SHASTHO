@@ -35,9 +35,9 @@ export default function HomePanel() {
   ]
 
   const ACTIVITY_STATS = [
-    { Icon:Flame,  label:t('hp_calories'),  value:'320 kcal' },
-    { Icon:Timer,  label:t('hp_duration'),  value:t('hp_48min') },
-    { Icon:Target, label:t('hp_goal'),      value:'68%' },
+    { Icon:Flame,  label:t('hp_calories'), value:'320 kcal' },
+    { Icon:Timer,  label:t('hp_duration'), value:t('hp_48min') },
+    { Icon:Target, label:t('hp_goal'),     value:'68%' },
   ]
 
   const [meds, setMeds] = useState(MEDS)
@@ -58,17 +58,20 @@ export default function HomePanel() {
       )}
 
       <div className={s.statsRow}>
-        {STATS.map(st => (
-          <div key={st.label} className={`${s.statCard} ${s['accent_'+st.accent]}`}>
-            <div className={s.statTop}>
-              <span className={s.statIcon}><st.Icon size={18} /></span>
-              <span className={`${s.statChange} ${s['type_'+st.type]}`}>{st.change}</span>
+        {STATS.map(st => {
+          const StatIcon = st.Icon
+          return (
+            <div key={st.label} className={`${s.statCard} ${s['accent_'+st.accent]}`}>
+              <div className={s.statTop}>
+                <span className={s.statIcon}><StatIcon size={18} /></span>
+                <span className={`${s.statChange} ${s['type_'+st.type]}`}>{st.change}</span>
+              </div>
+              <div className={s.statVal}>{st.value}</div>
+              <div className={s.statUnit}>{st.unit}</div>
+              <div className={s.statLabel}>{st.label}</div>
             </div>
-            <div className={s.statVal}>{st.value}</div>
-            <div className={s.statUnit}>{st.unit}</div>
-            <div className={s.statLabel}>{st.label}</div>
-          </div>
-        ))}
+          )
+        })}
       </div>
 
       <div className={s.twoCol}>
@@ -110,12 +113,15 @@ export default function HomePanel() {
                 <text x="40" y="50" textAnchor="middle" fontSize="7" fill="var(--ink-soft)">{t('hp_steps')}</text>
               </svg>
               <div className={s.activityStats}>
-                {ACTIVITY_STATS.map(({ Icon, label, value }) => (
-                  <div key={label} className={s.actStat}>
-                    <Icon size={15} style={{color:'var(--ink-soft)'}} />
-                    <div><div className={s.actVal}>{value}</div><div className={s.actLabel}>{label}</div></div>
-                  </div>
-                ))}
+                {ACTIVITY_STATS.map(({ Icon, label, value }) => {
+                  const ActIcon = Icon
+                  return (
+                    <div key={label} className={s.actStat}>
+                      <ActIcon size={15} style={{color:'var(--ink-soft)'}} />
+                      <div><div className={s.actVal}>{value}</div><div className={s.actLabel}>{label}</div></div>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </div>
@@ -144,16 +150,19 @@ export default function HomePanel() {
         <div className={s.card}>
           <div className={s.cardHead}><span className={s.cardTitle}>{t('hp_meals_title')}</span><button className={s.addBtn}>{t('hp_meals_add')}</button></div>
           <div className={s.mealList}>
-            {MEALS.map(m => (
-              <div key={m.name} className={s.mealItem}>
-                <span className={s.mealEmoji}><m.Icon size={18} style={{color:'var(--ink-soft)'}} /></span>
-                <div className={s.mealInfo}>
-                  <div className={s.mealName}>{m.name}</div>
-                  <div className={s.mealCal}>{m.cal}</div>
+            {MEALS.map(m => {
+              const MealIcon = m.Icon
+              return (
+                <div key={m.name} className={s.mealItem}>
+                  <span className={s.mealEmoji}><MealIcon size={18} style={{color:'var(--ink-soft)'}} /></span>
+                  <div className={s.mealInfo}>
+                    <div className={s.mealName}>{m.name}</div>
+                    <div className={s.mealCal}>{m.cal}</div>
+                  </div>
+                  <span className={`${s.giTag} ${s['gi_'+m.giType]}`}>{m.gi}</span>
                 </div>
-                <span className={`${s.giTag} ${s['gi_'+m.giType]}`}>{m.gi}</span>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
 

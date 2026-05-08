@@ -12,12 +12,12 @@
     "db:migrate": "drizzle-kit migrate"
   },
   "dependencies": {
-    "next": "15.3.2",
+    "next": "15.5.18",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "@neondatabase/serverless": "^0.9.4",
     "drizzle-orm": "^0.31.2",
-    "lucide-react": "^0.383.0",
+    "lucide-react": "^0.514.0",
     "clsx": "^2.1.1",
     "tailwind-merge": "^2.3.0"
   },
@@ -30,7 +30,7 @@
     "postcss": "^8",
     "autoprefixer": "^10.0.1",
     "eslint": "^9",
-    "eslint-config-next": "15.3.2",
+    "eslint-config-next": "15.5.18",
     "drizzle-kit": "^0.22.7"
   }
 }

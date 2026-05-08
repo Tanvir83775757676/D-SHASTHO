@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { Hospital, Droplets, BarChart2, Scale, Pill, Utensils, Star } from 'lucide-react'
 import { useLang } from '@/i18n/LanguageContext'
 import s from '@/components/panels/DoctorsPanel.module.css'
 
@@ -23,7 +24,15 @@ export default function DoctorsPanel() {
     { doctorKey:'doc_d3_name', typeKey:'doc_a3_type', timeKey:'doc_a3_time', status:'pending', color:'#5A70C0' },
   ]
 
-  const statusLabel = s => s === 'online' ? t('doc_online') : s === 'busy' ? t('doc_busy') : t('doc_offline')
+  const PERMS = [
+    ['glucose', Droplets,  'doc_perm_glucose'],
+    ['hba1c',   BarChart2, 'doc_perm_hba1c'],
+    ['weight',  Scale,     'doc_perm_weight'],
+    ['meds',    Pill,      'doc_perm_meds'],
+    ['diet',    Utensils,  'doc_perm_diet'],
+  ]
+
+  const statusLabel = st => st === 'online' ? t('doc_online') : st === 'busy' ? t('doc_busy') : t('doc_offline')
 
   return (
     <div className={s.panel}>
@@ -36,11 +45,11 @@ export default function DoctorsPanel() {
               <div className={s.docInfo}>
                 <div className={s.docName}>{t(d.nameKey)}</div>
                 <div className={s.docRole}>{t(d.roleKey)}</div>
-                <div className={s.docHospital}>🏥 {t(d.hospitalKey)}</div>
+                <div className={s.docHospital}><Hospital size={13} /> {t(d.hospitalKey)}</div>
               </div>
               <div className={`${s.statusDot} ${s['status_'+d.status]}`} />
             </div>
-            <div className={s.docStats}><span>⭐ {d.rating}</span><span>({d.reviews})</span></div>
+            <div className={s.docStats}><Star size={13} fill="#F0A500" stroke="none" /> {d.rating} <span>({d.reviews})</span></div>
             <div className={s.sharedLabel}>{t('doc_shared')}</div>
             <div className={s.sharedTags}>{d.shared.map(k => <span key={k} className={s.sharedTag}>{t(k)}</span>)}</div>
             <div className={s.nextAppt}>{t('doc_next')} {t(d.nextKey)}</div>
@@ -56,9 +65,9 @@ export default function DoctorsPanel() {
         <div className={s.cardHead}><span className={s.cardTitle}>{t('doc_perm_title')}</span></div>
         <p className={s.permDesc}>{t('doc_perm_desc')}</p>
         <div className={s.permList}>
-          {[['glucose','💧','doc_perm_glucose'],['hba1c','📊','doc_perm_hba1c'],['weight','⚖️','doc_perm_weight'],['meds','💊','doc_perm_meds'],['diet','🍛','doc_perm_diet']].map(([k,ic,lk]) => (
+          {PERMS.map(([k, Icon, lk]) => (
             <div key={k} className={s.permItem}>
-              <span className={s.permIcon}>{ic}</span>
+              <span className={s.permIcon}><Icon size={16} /></span>
               <span className={s.permLabel}>{t(lk)}</span>
               <button className={`${s.toggle} ${permissions[k]?s.toggleOn:''}`} onClick={() => toggle(k)}>
                 <span className={s.toggleThumb} />
@@ -89,4 +98,3 @@ export default function DoctorsPanel() {
     </div>
   )
 }
-

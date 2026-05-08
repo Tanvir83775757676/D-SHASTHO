@@ -24,20 +24,22 @@ export default function Onboarding() {
   ]
 
   const GOALS = [
-    { Icon:TrendingDown, key:'ob_goal1' },
-    { Icon:Scale,        key:'ob_goal2' },
-    { Icon:Dumbbell,     key:'ob_goal3' },
+    { Icon:TrendingDown,    key:'ob_goal1' },
+    { Icon:Scale,           key:'ob_goal2' },
+    { Icon:Dumbbell,        key:'ob_goal3' },
     { Icon:UtensilsCrossed, key:'ob_goal4' },
-    { Icon:Pill,         key:'ob_goal5' },
-    { Icon:Stethoscope,  key:'ob_goal6' },
+    { Icon:Pill,            key:'ob_goal5' },
+    { Icon:Stethoscope,     key:'ob_goal6' },
   ]
 
   const set = (k, v) => setForm(p => ({ ...p, [k]: v }))
   const toggleArr = (k, v) => setForm(p => ({
     ...p, [k]: p[k].includes(v) ? p[k].filter(x => x !== v) : [...p[k], v]
   }))
-  const next = () => step < 4 ? setStep(s => s + 1) : router.push('/dashboard')
-  const back = () => step > 1 ? setStep(s => s - 1) : router.push('/landing')
+  const next = () => step < 4 ? setStep(prev => prev + 1) : router.push('/dashboard')
+  const back = () => step > 1 ? setStep(prev => prev - 1) : router.push('/landing')
+
+  const CurrentStepIcon = STEPS[step - 1].Icon
 
   return (
     <div className={s.layout}>
@@ -47,15 +49,18 @@ export default function Onboarding() {
           <div className={s.sidebarLogoText}>D-Shastho</div>
         </div>
         <div className={s.steps}>
-          {STEPS.map(st => (
-            <div key={st.id} className={`${s.step} ${step===st.id?s.stepActive:step>st.id?s.stepDone:s.stepLocked}`}>
-              <div className={s.stepNum}>{step > st.id ? <Check size={14} /> : st.id}</div>
-              <div>
-                <div className={s.stepTitle}>{st.title}</div>
-                <div className={s.stepSub}>{st.sub}</div>
+          {STEPS.map(st => {
+            const StepIcon = st.Icon
+            return (
+              <div key={st.id} className={`${s.step} ${step===st.id?s.stepActive:step>st.id?s.stepDone:s.stepLocked}`}>
+                <div className={s.stepNum}>{step > st.id ? <Check size={14} /> : st.id}</div>
+                <div>
+                  <div className={s.stepTitle}>{st.title}</div>
+                  <div className={s.stepSub}>{st.sub}</div>
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
         <div className={s.sidebarNote}>{t('ob_secure')}</div>
         <div style={{marginTop:12,display:'flex',justifyContent:'center'}}>
@@ -69,7 +74,7 @@ export default function Onboarding() {
         </div>
         <div className={s.formWrap}>
           <div className={s.stepHeader}>
-            <span className={s.stepIcon}><STEPS[step-1].Icon size={28} /></span>
+            <span className={s.stepIcon}><CurrentStepIcon size={28} /></span>
             <div>
               <h2 className={s.stepHeading}>{STEPS[step-1].title}</h2>
               <p className={s.stepHeadSub}>{STEPS[step-1].sub}</p>
@@ -154,10 +159,11 @@ export default function Onboarding() {
                 <label className={s.label}>{t('ob_goals_label')}</label>
                 <div className={s.goalGrid}>
                   {GOALS.map(g => {
+                    const GoalIcon = g.Icon
                     const label = t(g.key)
                     return (
                       <button key={g.key} className={`${s.goalCard} ${form.goals.includes(g.key)?s.goalActive:''}`} onClick={()=>toggleArr('goals',g.key)}>
-                        <span className={s.goalIcon}><g.Icon size={22} /></span>
+                        <span className={s.goalIcon}><GoalIcon size={22} /></span>
                         <span className={s.goalLabel}>{label}</span>
                         {form.goals.includes(g.key) && <span className={s.goalCheck}><Check size={14} /></span>}
                       </button>

@@ -56,3 +56,4 @@
 .cancelBtn:hover { border-color: var(--teal); color: var(--teal); }
 .saveBtn { background: var(--teal); color: white; border: none; padding: 12px 28px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
 .saveBtn:hover { background: var(--teal-light); transform: translateY(-1px); }
+

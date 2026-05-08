@@ -102,17 +102,20 @@ Target: Serve Bangladesh's 84 million at-risk diabetics with affordable, Bengali
 
 ## Features (9 Core)
 
-| # | Feature | Status |
-|---|---|---|
-| 1 | AI-Powered Glucose Analytics | 🔄 UI built, AI integration planned |
-| 2 | Expert Doctor Consultations (200+) | 🔄 UI built, booking backend planned |
-| 3 | Real-Time Monitoring (CGM + manual) | 🔄 Manual logging built |
-| 4 | Bengali Food GI Guide | ⏳ Planned |
-| 5 | Smart Medication Reminders | 🔄 UI built, push notifications planned |
-| 6 | Health Reports (PDF) | 🔄 UI built, PDF generation planned |
-| 7 | Lab Test Booking | ⏳ Planned |
-| 8 | Family Sharing (up to 5 members) | ⏳ Planned |
-| 9 | Risk & Prevention Tracker | 🔄 UI built |
+| # | Feature | Status | Panel |
+|---|---|---|---|
+| 1 | AI-Powered Glucose Analytics | 🔄 UI built, AI integration planned | `HomePanel` |
+| 2 | Expert Doctor Consultations (200+) | 🔄 UI built, booking backend planned | `DoctorsPanel` |
+| 3 | Real-Time Monitoring (CGM + manual) | 🔄 Manual logging built | `HomePanel` + `LogModal` |
+| 4 | Bengali Food GI Guide | 🔄 Articles in EducationPanel | `EducationPanel` |
+| 5 | Smart Medication Reminders | ✅ Full UI built — schedule, adherence, add/edit | `MedsPanel` |
+| 6 | Health Reports (PDF) | 🔄 UI built, PDF generation planned | `ReportsPanel` |
+| 7 | Lab Test Booking | ✅ Full UI built — browse, book, track | `LabPanel` |
+| 8 | Family Sharing (up to 5 members) | ✅ Full UI built — overview, alerts, sharing settings | `FamilyPanel` |
+| 9 | Risk & Prevention Tracker | 🔄 UI built | `RiskPanel` |
+| 10 | Education Hub | ✅ Articles, videos, quiz | `EducationPanel` |
+| 11 | Settings | ✅ Profile, glucose targets, notifications, privacy, subscription | `SettingsPanel` |
+| 12 | Notifications | ✅ Sliding drawer with read/dismiss | `NotificationsPanel` |
 
 ---
 
@@ -227,13 +230,14 @@ export const doctors = pgTable('doctors', {
 
 | Phase | Name | Status | Key Tasks |
 |---|---|---|---|
-| 1 | Foundation | ✅ | Landing page, onboarding flow, dashboard UI, bilingual EN/BN |
-| 2 | Core Logging | 🔄 | Glucose log modal, medication tracker, 7-day chart, reports UI |
+| 1 | Foundation | ✅ | Landing page (#about, #contact), onboarding flow, dashboard UI, bilingual EN/BN |
+| 2 | Full UI | ✅ | All 8 panels built: Home, Reports, Risk, Doctors, Lab, Meds, Family, Education + Settings + Notifications |
 | 3 | Backend + Auth | ⏳ | Node/Express API, PostgreSQL, phone OTP auth |
 | 4 | AI Integration | ⏳ | AI chat assistant, glucose trend predictions, anomaly alerts |
-| 5 | Marketplace | ⏳ | Lab booking, doctor consultations, payment (bKash/Nagad) |
-| 6 | Mobile App | ⏳ | React Native app, push notifications, CGM device sync |
-| 7 | Scale | ⏳ | Insurance partnerships, SAARC expansion (India, Pakistan, Sri Lanka) |
+| 5 | Marketplace | ⏳ | Real lab booking, doctor consultation payments (bKash/Nagad) |
+| 6 | Next.js Migration | ⏳ | Migrate from Vite to Next.js 14 App Router, integrate Li Ador Noirrit |
+| 7 | Mobile App | ⏳ | React Native app, push notifications, CGM device sync |
+| 8 | Scale | ⏳ | Insurance partnerships, SAARC expansion (India, Pakistan, Sri Lanka) |
 
 ---
 
@@ -241,14 +245,16 @@ export const doctors = pgTable('doctors', {
 
 > Ordered by priority. Rewritten fresh on each `update repo`.
 
-1. [ ] Set up Node.js/Express backend with PostgreSQL
-2. [ ] Implement phone OTP authentication
-3. [ ] Wire glucose logging modal to real API
-4. [ ] Add PDF report generation (server-side)
-5. [ ] Integrate AI assistant (Claude API / Anthropic)
-6. [ ] Add Bengali food GI guide data
-7. [ ] Set up bKash/Nagad payment for Pro plans
-8. [ ] Begin React Native mobile port
+1. [ ] Begin Next.js 14 App Router migration (Vite → Next.js)
+2. [ ] Set up Node.js/Express backend with PostgreSQL
+3. [ ] Implement phone OTP authentication (Twilio or local SMS gateway)
+4. [ ] Wire glucose logging modal to real API
+5. [ ] Add PDF report generation (server-side, pdf-lib or Puppeteer)
+6. [ ] Integrate AI assistant (Claude API / Anthropic)
+7. [ ] Connect real lab booking APIs (Popular, Ibn Sina, Labaid)
+8. [ ] Set up bKash/Nagad payment for Pro plans
+9. [ ] Add push notifications (Firebase FCM)
+10. [ ] Begin React Native mobile port
 
 ---
 
@@ -260,3 +266,4 @@ export const doctors = pgTable('doctors', {
 - **2026-05-07** — App built as single-page React + Vite. No backend yet — all data is local/mock state.
 - **2026-05-08** — Custom Bengali font "Li Ador Noirrit" added (10 variants). TTF→WOFF2 converted, pushed to `public/fonts/`. Next.js font config at `lib/fonts/li-ador-noirrit.ts`, CSS var `--font-bengali`.
 - **2026-05-08** — Decided to migrate from Vite to Next.js 14 App Router.
+- **2026-05-08** — Built all missing panels: LabPanel, MedsPanel, FamilyPanel, EducationPanel, SettingsPanel, NotificationsPanel. Added #about and #contact sections to Landing. All nav items now point to real, working panels.

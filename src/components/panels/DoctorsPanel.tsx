@@ -1,5 +1,5 @@
-import React from 'react'
 'use client'
+import React from 'react'
 import { useState } from 'react'
 import { Hospital, Droplets, BarChart2, Scale, Pill, Utensils, Star } from 'lucide-react'
 import { useLang } from '@/i18n/LanguageContext'

@@ -62,10 +62,11 @@
 | Li_Ador_Noirrit_Bold.woff2 | 700 | normal |
 | Li_Ador_Noirrit_Bold_Italic.woff2 | 700 | italic |
 
-**Next.js usage:**
+**Next.js usage (current implementation):**
 ```tsx
-// app/layout.tsx
-import { liAdorNoirrit } from '@/lib/fonts/li-ador-noirrit'
+// src/lib/fonts/index.ts — exports adorNoirrit, dmSans, fraunces
+// src/app/layout.tsx — all three wired as CSS variables
+import { adorNoirrit } from '@/lib/fonts'
 
 export default function RootLayout({ children }) {
   return (
@@ -369,3 +370,46 @@ Uses standard 4px base grid:
 - Surface layers: `#0f2040` → `#1a3050` (card → modal)
 - Never use pure white (`#ffffff`) for backgrounds
 - Frosted glass effect: `backdrop-filter: blur(10–20px)` on overlays and nav
+
+
+---
+
+## Icons
+
+All UI icons use **Lucide React** (`lucide-react@0.383.0`). No emojis in production UI.
+
+**Import pattern:**
+```tsx
+import { Activity, Bell, Settings, Stethoscope } from 'lucide-react'
+
+// Sizing convention:
+// Sidebar nav icons:  size={16}
+// Topbar icons:       size={18}
+// Feature section:    size={28}
+// Empty states:       size={40}
+```
+
+**Icon → replaced emoji map:**
+| Emoji | Lucide Icon | Context |
+|---|---|---|
+| 🩺 | `Activity` | Logo / brand |
+| 📊 | `LayoutDashboard` | Dashboard nav |
+| 📋 | `FileText` | Reports nav |
+| 🛡️ | `ShieldCheck` | Risk nav |
+| 👨‍⚕️ | `Stethoscope` | Doctors nav |
+| 🧪 | `FlaskConical` | Lab nav |
+| 💊 | `Pill` | Medications nav |
+| 👨‍👩‍👧 | `Users` | Family nav |
+| 📚 | `BookOpen` | Education nav |
+| 🔔 | `Bell` | Notifications |
+| ⚙️ | `Settings` | Settings |
+| ➕ | `Plus` | Log reading btn |
+| 🚪 | `LogOut` | Sign out |
+| 📍 | `MapPin` | Address / location |
+| 📞 | `Phone` | Contact |
+| ✉️ | `Mail` | Email |
+| 🕐 | `Clock` | Hours |
+| 🤖 | `Bot` | AI feature |
+| 🔒 | `ShieldCheck` | Privacy |
+| ⭐ | `Star` | Affordable / rating |
+| ✈️ | `Send` | Submit / send |

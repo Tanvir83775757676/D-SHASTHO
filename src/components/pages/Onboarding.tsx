@@ -50,7 +50,6 @@ export default function Onboarding() {
         </div>
         <div className={s.steps}>
           {STEPS.map(st => {
-            const StepIcon = st.Icon
             return (
               <div key={st.id} className={`${s.step} ${step===st.id?s.stepActive:step>st.id?s.stepDone:s.stepLocked}`}>
                 <div className={s.stepNum}>{step > st.id ? <Check size={14} /> : st.id}</div>

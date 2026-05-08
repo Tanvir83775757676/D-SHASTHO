@@ -147,7 +147,7 @@ export default function Dashboard() {
 
       {toast && (
         <div className={s.toast}>
-          ✓ {t('toast_saved')}
+          <Check size={14} /> {t('toast_saved')}
         </div>
       )}
     </div>

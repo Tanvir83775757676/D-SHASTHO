@@ -1,29 +1,36 @@
 'use client'
 import { useState } from 'react'
+import { Utensils, PersonStanding, Pill, BarChart2, Heart, BedDouble, PlayCircle, BookOpen, Brain, Bookmark, Clock, Trophy, ThumbsUp, ChevronRight } from 'lucide-react'
 import s from '@/components/panels/EducationPanel.module.css'
 
 const ARTICLES = [
-  { id: 1, category: 'Nutrition', icon: '🍛', title: 'GI Guide: Bangladeshi Foods for Diabetics', desc: 'Rice, dal, roti — learn which staples to eat and how much. Includes local food GI chart.', readTime: '5 min', saved: false, color: '#1A8A5A' },
-  { id: 2, category: 'Exercise', icon: '🏃', title: 'Simple 20-Minute Morning Routine for Diabetics', desc: 'Low-impact exercises to lower blood sugar without a gym. Suitable for all ages.', readTime: '4 min', saved: true, color: '#0A6E6E' },
-  { id: 3, category: 'Medication', icon: '💊', title: 'Understanding Metformin: When, How & Why', desc: 'Everything you need to know about the most prescribed diabetes medication in Bangladesh.', readTime: '6 min', saved: false, color: '#5A70C0' },
-  { id: 4, category: 'Monitoring', icon: '📊', title: 'How to Read Your Blood Sugar Numbers', desc: 'Fasting, post-meal, random — what each number means and what action to take.', readTime: '3 min', saved: false, color: '#F0A500' },
-  { id: 5, category: 'Complications', icon: '🫀', title: 'Protecting Your Heart as a Diabetic', desc: 'Diabetes and heart disease are closely linked. Here\'s how to reduce your risk.', readTime: '7 min', saved: true, color: '#E8553E' },
-  { id: 6, category: 'Lifestyle', icon: '😴', title: 'How Sleep Affects Your Blood Sugar', desc: 'Poor sleep raises glucose levels significantly. Tips for better sleep with diabetes.', readTime: '4 min', saved: false, color: '#0D8A8A' },
+  { id: 1, category: 'Nutrition',     Icon: Utensils,       title: 'GI Guide: Bangladeshi Foods for Diabetics',       desc: 'Rice, dal, roti — learn which staples to eat and how much. Includes local food GI chart.', readTime: '5 min', saved: false, color: '#1A8A5A' },
+  { id: 2, category: 'Exercise',      Icon: PersonStanding, title: 'Simple 20-Minute Morning Routine for Diabetics',   desc: 'Low-impact exercises to lower blood sugar without a gym. Suitable for all ages.',          readTime: '4 min', saved: true,  color: '#0A6E6E' },
+  { id: 3, category: 'Medication',    Icon: Pill,           title: 'Understanding Metformin: When, How & Why',         desc: 'Everything you need to know about the most prescribed diabetes medication in Bangladesh.', readTime: '6 min', saved: false, color: '#5A70C0' },
+  { id: 4, category: 'Monitoring',    Icon: BarChart2,      title: 'How to Read Your Blood Sugar Numbers',             desc: 'Fasting, post-meal, random — what each number means and what action to take.',          readTime: '3 min', saved: false, color: '#F0A500' },
+  { id: 5, category: 'Complications', Icon: Heart,          title: 'Protecting Your Heart as a Diabetic',             desc: "Diabetes and heart disease are closely linked. Here's how to reduce your risk.",       readTime: '7 min', saved: true,  color: '#E8553E' },
+  { id: 6, category: 'Lifestyle',     Icon: BedDouble,      title: 'How Sleep Affects Your Blood Sugar',              desc: 'Poor sleep raises glucose levels significantly. Tips for better sleep with diabetes.',    readTime: '4 min', saved: false, color: '#0D8A8A' },
 ]
 
 const VIDEOS = [
-  { icon: '▶️', title: 'Diabetes 101 — Understanding Your Condition', duration: '12 min', views: '24k', category: 'Basics' },
-  { icon: '▶️', title: 'How to Use a Glucometer Correctly', duration: '7 min', views: '18k', category: 'Monitoring' },
-  { icon: '▶️', title: 'Meal Planning for Bangladeshi Diabetics', duration: '15 min', views: '31k', category: 'Nutrition' },
-  { icon: '▶️', title: 'Managing Diabetes During Ramadan', duration: '10 min', views: '14k', category: 'Lifestyle' },
+  { title: 'Diabetes 101 — Understanding Your Condition', duration: '12 min', views: '24k', category: 'Basics'     },
+  { title: 'How to Use a Glucometer Correctly',           duration: '7 min',  views: '18k', category: 'Monitoring' },
+  { title: 'Meal Planning for Bangladeshi Diabetics',     duration: '15 min', views: '31k', category: 'Nutrition'  },
+  { title: 'Managing Diabetes During Ramadan',            duration: '10 min', views: '14k', category: 'Lifestyle'  },
 ]
 
 const CATEGORIES = ['All', 'Nutrition', 'Exercise', 'Medication', 'Monitoring', 'Complications', 'Lifestyle']
 
 const QUIZ = [
-  { q: 'What is the normal fasting blood glucose range (mg/dL)?', options: ['Less than 70', '70–99', '100–125', 'Above 126'], answer: 1 },
-  { q: 'Which type of food has the lowest Glycemic Index (GI)?', options: ['White rice', 'Brown rice', 'Vegetables', 'White bread'], answer: 2 },
-  { q: 'How often should a Type 2 diabetic check HbA1c?', options: ['Every month', 'Every 3 months', 'Every 6 months', 'Once a year'], answer: 1 },
+  { q: 'What is the normal fasting blood glucose range (mg/dL)?',       options: ['Less than 70', '70–99', '100–125', 'Above 126'], answer: 1 },
+  { q: 'Which type of food has the lowest Glycemic Index (GI)?',         options: ['White rice', 'Brown rice', 'Vegetables', 'White bread'], answer: 2 },
+  { q: 'How often should a Type 2 diabetic check HbA1c?',                options: ['Every month', 'Every 3 months', 'Every 6 months', 'Once a year'], answer: 1 },
+]
+
+const TABS = [
+  { id: 'articles', Icon: BookOpen,    label: 'Articles'        },
+  { id: 'videos',   Icon: PlayCircle,  label: 'Videos'          },
+  { id: 'quiz',     Icon: Brain,       label: 'Knowledge Quiz'  },
 ]
 
 export default function EducationPanel() {
@@ -40,33 +47,27 @@ export default function EducationPanel() {
   const handleQuizAnswer = (idx) => {
     const newAnswers = [...quizAnswers, idx]
     setQuizAnswers(newAnswers)
-    if (quizStep < QUIZ.length - 1) {
-      setQuizStep(quizStep + 1)
-    } else {
-      setQuizDone(true)
-    }
+    if (quizStep < QUIZ.length - 1) { setQuizStep(quizStep + 1) } else { setQuizDone(true) }
   }
 
   const score = quizAnswers.filter((a, i) => a === QUIZ[i]?.answer).length
+  const ResultIcon = () => score === QUIZ.length ? <Trophy size={36} color="#F0A500" /> : score >= 2 ? <ThumbsUp size={36} color="#1A8A5A" /> : <BookOpen size={36} color="#0A6E6E" />
 
   return (
     <div className={s.panel}>
       <div className={s.tabs}>
-        {[['articles', '📚 Articles'], ['videos', '▶️ Videos'], ['quiz', '🧠 Knowledge Quiz']].map(([id, label]) => (
+        {TABS.map(({ id, Icon, label }) => (
           <button key={id} className={`${s.tab} ${tab === id ? s.tabActive : ''}`} onClick={() => setTab(id)}>
-            {label}
+            <Icon size={14} /> {label}
           </button>
         ))}
       </div>
 
-      {/* Articles */}
       {tab === 'articles' && (
         <div>
           <div className={s.catRow}>
             {CATEGORIES.map(cat => (
-              <button key={cat} className={`${s.catChip} ${catFilter === cat ? s.catActive : ''}`} onClick={() => setCatFilter(cat)}>
-                {cat}
-              </button>
+              <button key={cat} className={`${s.catChip} ${catFilter === cat ? s.catActive : ''}`} onClick={() => setCatFilter(cat)}>{cat}</button>
             ))}
           </div>
           <div className={s.articleGrid}>
@@ -75,15 +76,15 @@ export default function EducationPanel() {
                 <div className={s.articleTop}>
                   <span className={s.articleCat} style={{ background: article.color + '20', color: article.color }}>{article.category}</span>
                   <button className={`${s.saveBtn} ${article.saved ? s.saveBtnActive : ''}`} onClick={() => toggleSave(article.id)}>
-                    {article.saved ? '🔖' : '🔖'}
+                    <Bookmark size={15} fill={article.saved ? 'currentColor' : 'none'} />
                   </button>
                 </div>
-                <div className={s.articleIcon}>{article.icon}</div>
+                <div className={s.articleIcon}><article.Icon size={28} style={{color:article.color}} /></div>
                 <div className={s.articleTitle}>{article.title}</div>
                 <div className={s.articleDesc}>{article.desc}</div>
                 <div className={s.articleMeta}>
-                  <span>⏱ {article.readTime} read</span>
-                  <button className={s.readBtn}>Read →</button>
+                  <span><Clock size={12} /> {article.readTime} read</span>
+                  <button className={s.readBtn}>Read <ChevronRight size={13} /></button>
                 </div>
               </div>
             ))}
@@ -91,7 +92,6 @@ export default function EducationPanel() {
         </div>
       )}
 
-      {/* Videos */}
       {tab === 'videos' && (
         <div>
           <div className={s.sectionDesc}>Expert-created videos in Bengali to help you understand and manage diabetes better.</div>
@@ -99,7 +99,7 @@ export default function EducationPanel() {
             {VIDEOS.map((v, i) => (
               <div key={i} className={s.videoCard}>
                 <div className={s.videoThumb}>
-                  <div className={s.playBtn}>{v.icon}</div>
+                  <div className={s.playBtn}><PlayCircle size={32} /></div>
                 </div>
                 <div className={s.videoInfo}>
                   <span className={s.videoCat}>{v.category}</span>
@@ -112,7 +112,6 @@ export default function EducationPanel() {
         </div>
       )}
 
-      {/* Quiz */}
       {tab === 'quiz' && (
         <div className={s.quizWrap}>
           {!quizDone ? (
@@ -133,7 +132,7 @@ export default function EducationPanel() {
             </div>
           ) : (
             <div className={s.quizResult}>
-              <div className={s.resultIcon}>{score === QUIZ.length ? '🏆' : score >= 2 ? '👍' : '📚'}</div>
+              <div className={s.resultIcon}><ResultIcon /></div>
               <div className={s.resultScore}>{score}/{QUIZ.length}</div>
               <div className={s.resultLabel}>{score === QUIZ.length ? 'Perfect Score!' : score >= 2 ? 'Good Job!' : 'Keep Learning!'}</div>
               <div className={s.resultAnswers}>
@@ -155,4 +154,3 @@ export default function EducationPanel() {
     </div>
   )
 }
-

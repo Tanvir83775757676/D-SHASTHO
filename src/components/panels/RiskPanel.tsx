@@ -46,21 +46,24 @@ export default function RiskPanel() {
 
       <div className={s.sectionTitle}>{t('risk_section')}</div>
       <div className={s.cardGrid}>
-        {LIFESTYLE.map(l => (
-          <div key={l.titleKey} className={s.lifestyleCard}>
-            <div className={s.lcTop}>
-              <span className={s.lcIcon}><l.Icon size={20} style={{color:l.color}} /></span>
-              <div className={s.lcInfo}>
-                <div className={s.lcTitle}>{t(l.titleKey)}</div>
-                <div className={s.lcDesc}>{t(l.descKey)}</div>
+        {LIFESTYLE.map(l => {
+          const LifeIcon = l.Icon
+          return (
+            <div key={l.titleKey} className={s.lifestyleCard}>
+              <div className={s.lcTop}>
+                <span className={s.lcIcon}><LifeIcon size={20} style={{color:l.color}} /></span>
+                <div className={s.lcInfo}>
+                  <div className={s.lcTitle}>{t(l.titleKey)}</div>
+                  <div className={s.lcDesc}>{t(l.descKey)}</div>
+                </div>
+                <span className={s.lcPct} style={{color:l.color}}>{l.progress}%</span>
               </div>
-              <span className={s.lcPct} style={{color:l.color}}>{l.progress}%</span>
+              <div className={s.progressTrack}>
+                <div className={s.progressFill} style={{width:`${l.progress}%`,background:l.color}} />
+              </div>
             </div>
-            <div className={s.progressTrack}>
-              <div className={s.progressFill} style={{width:`${l.progress}%`,background:l.color}} />
-            </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
     </div>
   )

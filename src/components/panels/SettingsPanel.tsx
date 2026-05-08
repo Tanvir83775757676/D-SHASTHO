@@ -64,7 +64,7 @@ export default function SettingsPanel({ onClose }) {
                     </select>
                   </div>
                 </div>
-                <button className={s.saveBtn} onClick={save}>{saved ? <><Check size={14} /> Saved!</> : 'Save Changes'}</button>
+                <button className={s.saveBtn} onClick={save}>{saved ? <><Check size={14} /> Saved!</> : "Save Changes"}</button>
               </div>
             )}
 
@@ -97,7 +97,7 @@ export default function SettingsPanel({ onClose }) {
                     </div>
                   </div>
                 </div>
-                <button className={s.saveBtn} onClick={save}>{saved ? <><Check size={14} /> Saved!</> : 'Save Targets'}</button>
+                <button className={s.saveBtn} onClick={save}>{saved ? <><Check size={14} /> Saved!</> : "Save Targets"}</button>
               </div>
             )}
 

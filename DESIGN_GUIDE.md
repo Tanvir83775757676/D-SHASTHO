@@ -46,9 +46,49 @@
 **Font Stack:**
 - Display/Headings: `Fraunces` — weights 300, 400, 600 (serif, elegant)
 - Body/UI: `DM Sans` — weights 300, 400, 500, 600
-- Bengali text: System Bengali font fallback (`'Noto Sans Bengali', sans-serif`)
+- Bengali (all text): **`Li Ador Noirrit`** — custom self-hosted, 10 variants
 
-**Google Fonts import:**
+**Li Ador Noirrit variants:**
+| File | Weight | Style |
+|---|---|---|
+| Li_Ador_Noirrit_ExtraLight.woff2 | 200 | normal |
+| Li_Ador_Noirrit_ExtraLight_Italic.woff2 | 200 | italic |
+| Li_Ador_Noirrit_Light.woff2 | 300 | normal |
+| Li_Ador_Noirrit_Light_Italic.woff2 | 300 | italic |
+| Li_Ador_Noirrit_Regular.woff2 | 400 | normal |
+| Li_Ador_Noirrit_Italic.woff2 | 400 | italic |
+| Li_Ador_Noirrit_SemiBold.woff2 | 600 | normal |
+| Li_Ador_Noirrit_SemiBold_Italic.woff2 | 600 | italic |
+| Li_Ador_Noirrit_Bold.woff2 | 700 | normal |
+| Li_Ador_Noirrit_Bold_Italic.woff2 | 700 | italic |
+
+**Next.js usage:**
+```tsx
+// app/layout.tsx
+import { liAdorNoirrit } from '@/lib/fonts/li-ador-noirrit'
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="bn" className={liAdorNoirrit.variable}>
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
+```css
+/* Apply Bengali font via CSS variable */
+.bengali-text {
+  font-family: var(--font-bengali), sans-serif;
+}
+
+/* Or in Tailwind — add to tailwind.config.ts */
+fontFamily: {
+  bengali: ['var(--font-bengali)', 'sans-serif'],
+}
+```
+
+**Google Fonts import (for Latin fonts only):**
 ```html
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 ```

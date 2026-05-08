@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { User, Stethoscope, ClipboardList, Target, TrendingDown, Scale, Dumbbell, UtensilsCrossed, Pill, Check } from 'lucide-react'
 import { useLang } from '@/i18n/LanguageContext'
 import LangSwitcher from '@/components/LangSwitcher'
 import s from '@/components/pages/Onboarding.module.css'
@@ -16,10 +17,19 @@ export default function Onboarding() {
   })
 
   const STEPS = [
-    { id:1, title:t('ob_step1_title'), sub:t('ob_step1_sub'), icon:'👤' },
-    { id:2, title:t('ob_step2_title'), sub:t('ob_step2_sub'), icon:'🩺' },
-    { id:3, title:t('ob_step3_title'), sub:t('ob_step3_sub'), icon:'📋' },
-    { id:4, title:t('ob_step4_title'), sub:t('ob_step4_sub'), icon:'🎯' },
+    { id:1, title:t('ob_step1_title'), sub:t('ob_step1_sub'), Icon:User },
+    { id:2, title:t('ob_step2_title'), sub:t('ob_step2_sub'), Icon:Stethoscope },
+    { id:3, title:t('ob_step3_title'), sub:t('ob_step3_sub'), Icon:ClipboardList },
+    { id:4, title:t('ob_step4_title'), sub:t('ob_step4_sub'), Icon:Target },
+  ]
+
+  const GOALS = [
+    { Icon:TrendingDown, key:'ob_goal1' },
+    { Icon:Scale,        key:'ob_goal2' },
+    { Icon:Dumbbell,     key:'ob_goal3' },
+    { Icon:UtensilsCrossed, key:'ob_goal4' },
+    { Icon:Pill,         key:'ob_goal5' },
+    { Icon:Stethoscope,  key:'ob_goal6' },
   ]
 
   const set = (k, v) => setForm(p => ({ ...p, [k]: v }))
@@ -33,13 +43,13 @@ export default function Onboarding() {
     <div className={s.layout}>
       <aside className={s.sidebar}>
         <div className={s.sidebarLogo}>
-          <div className={s.sidebarLogoIcon}>🩺</div>
+          <div className={s.sidebarLogoIcon}><Stethoscope size={22} /></div>
           <div className={s.sidebarLogoText}>D-Shastho</div>
         </div>
         <div className={s.steps}>
           {STEPS.map(st => (
             <div key={st.id} className={`${s.step} ${step===st.id?s.stepActive:step>st.id?s.stepDone:s.stepLocked}`}>
-              <div className={s.stepNum}>{step > st.id ? '✓' : st.id}</div>
+              <div className={s.stepNum}>{step > st.id ? <Check size={14} /> : st.id}</div>
               <div>
                 <div className={s.stepTitle}>{st.title}</div>
                 <div className={s.stepSub}>{st.sub}</div>
@@ -59,7 +69,7 @@ export default function Onboarding() {
         </div>
         <div className={s.formWrap}>
           <div className={s.stepHeader}>
-            <span className={s.stepIcon}>{STEPS[step-1].icon}</span>
+            <span className={s.stepIcon}><STEPS[step-1].Icon size={28} /></span>
             <div>
               <h2 className={s.stepHeading}>{STEPS[step-1].title}</h2>
               <p className={s.stepHeadSub}>{STEPS[step-1].sub}</p>
@@ -143,17 +153,13 @@ export default function Onboarding() {
               <div className={s.fieldFull}>
                 <label className={s.label}>{t('ob_goals_label')}</label>
                 <div className={s.goalGrid}>
-                  {[
-                    {icon:'📉', key:'ob_goal1'}, {icon:'⚖️', key:'ob_goal2'},
-                    {icon:'💪', key:'ob_goal3'}, {icon:'🍛', key:'ob_goal4'},
-                    {icon:'💊', key:'ob_goal5'}, {icon:'🩺', key:'ob_goal6'},
-                  ].map(g => {
+                  {GOALS.map(g => {
                     const label = t(g.key)
                     return (
                       <button key={g.key} className={`${s.goalCard} ${form.goals.includes(g.key)?s.goalActive:''}`} onClick={()=>toggleArr('goals',g.key)}>
-                        <span className={s.goalIcon}>{g.icon}</span>
+                        <span className={s.goalIcon}><g.Icon size={22} /></span>
                         <span className={s.goalLabel}>{label}</span>
-                        {form.goals.includes(g.key) && <span className={s.goalCheck}>✓</span>}
+                        {form.goals.includes(g.key) && <span className={s.goalCheck}><Check size={14} /></span>}
                       </button>
                     )
                   })}
@@ -171,4 +177,3 @@ export default function Onboarding() {
     </div>
   )
 }
-

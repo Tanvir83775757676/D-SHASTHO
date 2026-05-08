@@ -45,7 +45,6 @@ export default function HomePanel() {
 
   const svgPath = 'M ' + SVG_POINTS.map(([x,y]) => `${x},${y}`).join(' L ')
   const svgFill = svgPath + ` L ${SVG_POINTS[SVG_POINTS.length-1][0]},80 L 0,80 Z`
-  const days = t('hp_days')
 
   return (
     <div className={s.panel}>
@@ -97,7 +96,7 @@ export default function HomePanel() {
               <circle key={i} cx={x} cy={y} r="3" fill={i===SVG_POINTS.length-1?'#E8553E':'#0A6E6E'} stroke="white" strokeWidth="1.5" />
             ))}
           </svg>
-          <div className={s.chartXLabels}>{days.map(d => <span key={d}>{d}</span>)}</div>
+          <div className={s.chartXLabels}>{['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(d => <span key={d}>{d}</span>)}</div>
         </div>
 
         <div className={s.rightCol}>

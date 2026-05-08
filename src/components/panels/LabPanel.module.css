@@ -60,3 +60,4 @@
 .btnConfirm { flex: 1; background: var(--teal); color: #fff; border: none; border-radius: 8px; padding: 11px; font-weight: 600; font-size: 0.9rem; font-family: 'DM Sans', sans-serif; cursor: pointer; }
 .btnConfirm:disabled { opacity: 0.4; cursor: not-allowed; }
 .toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%); background: #1A8A5A; color: #fff; font-weight: 600; padding: 12px 24px; border-radius: 99px; font-size: 0.875rem; box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 200; white-space: nowrap; }
+

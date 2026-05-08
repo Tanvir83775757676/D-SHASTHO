@@ -30,8 +30,10 @@ Target: Serve Bangladesh's 84 million at-risk diabetics with affordable, Bengali
 ## Architecture
 
 **Stack:**
-- Framework: React + Vite (frontend web app)
+- Framework: React + Vite (current) → **Next.js 14 App Router** (migration planned)
 - Styling: CSS-in-JS (inline styles), Google Fonts (Fraunces + DM Sans)
+- Bengali Font: **Li Ador Noirrit** (custom, self-hosted) — 10 variants WOFF2 in `public/fonts/`
+- Font Config: `lib/fonts/li-ador-noirrit.ts` → `next/font/local`, CSS var `--font-bengali`
 - Routing: React Router DOM (`/`, `/onboarding`, `/dashboard`)
 - Backend: Node.js / Express (planned)
 - Database: PostgreSQL + TimescaleDB for time-series glucose data (planned)
@@ -256,3 +258,5 @@ export const doctors = pgTable('doctors', {
 - **2026-05-07** — Added EN/BN language switcher using React Context. Default language is English.
 - **2026-05-07** — Deployed to Vercel via GitHub repo `Tanvir83775757676/D-SHASTHO`.
 - **2026-05-07** — App built as single-page React + Vite. No backend yet — all data is local/mock state.
+- **2026-05-08** — Custom Bengali font "Li Ador Noirrit" added (10 variants). TTF→WOFF2 converted, pushed to `public/fonts/`. Next.js font config at `lib/fonts/li-ador-noirrit.ts`, CSS var `--font-bengali`.
+- **2026-05-08** — Decided to migrate from Vite to Next.js 14 App Router.

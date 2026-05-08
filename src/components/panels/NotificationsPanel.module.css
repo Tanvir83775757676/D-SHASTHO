@@ -25,3 +25,4 @@
 .unreadDot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
 .dismissBtn { background: none; border: none; font-size: 0.8rem; color: var(--ink-soft); cursor: pointer; padding: 2px 6px; border-radius: 4px; opacity: 0; flex-shrink: 0; }
 .item:hover .dismissBtn { opacity: 1; }
+

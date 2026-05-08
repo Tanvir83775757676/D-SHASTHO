@@ -25,11 +25,14 @@ export default function LogModal({ onClose, onSave }) {
           <button className={s.closeBtn} onClick={onClose}><X size={18} /></button>
         </div>
         <div className={s.tabs}>
-          {TABS.map(tb => (
-            <button key={tb.id} className={`${s.tab} ${tab===tb.id?s.tabActive:''}`} onClick={() => setTab(tb.id)}>
-              <tb.Icon size={15} /> {tb.label}
-            </button>
-          ))}
+          {TABS.map(tb => {
+            const TabIcon = tb.Icon
+            return (
+              <button key={tb.id} className={`${s.tab} ${tab===tb.id?s.tabActive:''}`} onClick={() => setTab(tb.id)}>
+                <TabIcon size={15} /> {tb.label}
+              </button>
+            )
+          })}
         </div>
         <div className={s.body}>
           {tab === 'glucose' && (

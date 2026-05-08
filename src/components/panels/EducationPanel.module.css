@@ -49,3 +49,4 @@
 .resultWrong { background: #E8553E10; color: #E8553E; }
 .resultAns { font-weight: 600; margin-left: auto; white-space: nowrap; }
 .retryBtn { background: var(--teal); color: #fff; border: none; border-radius: 10px; padding: 12px 32px; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.95rem; cursor: pointer; }
+

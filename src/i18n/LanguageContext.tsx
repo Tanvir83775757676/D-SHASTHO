@@ -621,4 +621,3 @@ export const translations = {
     lang_bn: 'বাং',
   }
 }
-

@@ -5,7 +5,7 @@ import { createContext, useContext, useState, type ReactNode } from 'react'
 type LangContextType = {
   lang: string
   toggle: () => void
-  t: (key: string) => any
+  t: (key: string) => string
 }
 export const LanguageContext = createContext<LangContextType>({} as LangContextType)
 

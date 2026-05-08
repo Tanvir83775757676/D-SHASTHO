@@ -48,11 +48,11 @@ export default function MedsPanel() {
       <div className={s.summaryRow}>
         <div className={s.summaryCard}>
           <div className={s.summaryVal}>{takenCount}/{totalDoses}</div>
-          <div className={s.summaryLabel}>Today's Doses</div>
+          <div className={s.summaryLabel}>Today&apos;s Doses</div>
         </div>
         <div className={s.summaryCard}>
           <div className={s.summaryVal} style={{ color: adherencePct >= 80 ? '#1A8A5A' : '#E8553E' }}>{adherencePct}%</div>
-          <div className={s.summaryLabel}>Today's Adherence</div>
+          <div className={s.summaryLabel}>Today&apos;s Adherence</div>
         </div>
         <div className={s.summaryCard}>
           <div className={s.summaryVal}>{meds.filter(m => m.active && m.stock <= m.refillAt).length}</div>

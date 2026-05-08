@@ -3,7 +3,7 @@ import { useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import {
   Bot, UserCheck, Activity, UtensilsCrossed, Bell, FileBarChart2,
-  FlaskConical, Users, ShieldCheck, Send, MapPin, Phone, Mail, Clock,
+  ShieldCheck, Send, MapPin, Phone, Mail, Clock,
   ChevronRight, Star
 } from 'lucide-react'
 import { useLang } from '@/i18n/LanguageContext'
@@ -123,8 +123,8 @@ export default function Landing() {
           {features.map(({ key, Icon }) => (
             <div key={key} className={styles.featCard}>
               <div className={styles.featIcon}><Icon size={28} color="#0A6E6E" /></div>
-              <h3 className={styles.featTitle}>{t(`${key}_title` as any)}</h3>
-              <p className={styles.featDesc}>{t(`${key}_desc` as any)}</p>
+              <h3 className={styles.featTitle}>{t(`${key}_title` as string)}</h3>
+              <p className={styles.featDesc}>{t(`${key}_desc` as string)}</p>
             </div>
           ))}
         </div>
@@ -134,11 +134,11 @@ export default function Landing() {
       <section id="about" className={styles.about}>
         <div className={styles.sectionHead}>
           <h2 className={styles.sectionTitle}>About D-Shastho</h2>
-          <p className={styles.sectionSub}>Built in Bangladesh, for Bangladesh's 84 million at-risk diabetics</p>
+          <p className={styles.sectionSub}>Built in Bangladesh, for Bangladesh&apos;s 84 million at-risk diabetics</p>
         </div>
         <div className={styles.aboutGrid}>
           <div className={styles.aboutText}>
-            <p>D-Shastho (ডি-স্বাস্থ্য) is Bangladesh's first complete digital diabetes management platform — combining AI-powered analytics, Bengali-language doctor consultations, and a local food guide, all in one place.</p>
+            <p>D-Shastho (ডি-স্বাস্থ্য) is Bangladesh&apos; first complete digital diabetes management platform — combining AI-powered analytics, Bengali-language doctor consultations, and a local food guide, all in one place.</p>
             <p>We believe every Bangladeshi deserves access to world-class diabetes care, regardless of where they live or what they can afford.</p>
             <div className={styles.aboutStats}>
               {([['2026','Founded'],['50,000+','Patients'],['200+','Doctors'],['40+','Labs']] as const).map(([v, l]) => (

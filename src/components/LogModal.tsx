@@ -4,18 +4,18 @@ import { Droplets, Scale, Heart, X } from 'lucide-react'
 import { useLang } from '../i18n/LanguageContext'
 import s from '@/components/LogModal.module.css'
 
+const TABS = [
+  { id:'glucose', Icon:Droplets, labelKey:'log_glucose' },
+  { id:'weight',  Icon:Scale,    labelKey:'log_weight'  },
+  { id:'bp',      Icon:Heart,    labelKey:'log_bp'      },
+]
+
 export default function LogModal({ onClose, onSave }) {
   const { t } = useLang()
   const [tab, setTab] = useState('glucose')
   const [glucose, setGlucose] = useState({ value:'', type:'fasting', note:'' })
-  const [weight, setWeight]   = useState({ value:'', note:'' })
-  const [bp, setBp]           = useState({ sys:'', dia:'', pulse:'', note:'' })
-
-  const TABS = [
-    { id:'glucose', Icon:Droplets, label:t('log_glucose') },
-    { id:'weight',  Icon:Scale,    label:t('log_weight') },
-    { id:'bp',      Icon:Heart,    label:t('log_bp') },
-  ]
+  const [weight,  setWeight]  = useState({ value:'', note:'' })
+  const [bp,      setBp]      = useState({ sys:'', dia:'', pulse:'', note:'' })
 
   return (
     <div className={s.overlay} onClick={e => e.target === e.currentTarget && onClose()}>
@@ -29,7 +29,7 @@ export default function LogModal({ onClose, onSave }) {
             const TabIcon = tb.Icon
             return (
               <button key={tb.id} className={`${s.tab} ${tab===tb.id?s.tabActive:''}`} onClick={() => setTab(tb.id)}>
-                <TabIcon size={15} /> {tb.label}
+                <TabIcon size={15} /> {t(tb.labelKey)}
               </button>
             )
           })}

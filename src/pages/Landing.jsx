@@ -111,6 +111,85 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* ABOUT SECTION */}
+      <section id="about" className={styles.about}>
+        <div className={styles.sectionHead}>
+          <h2 className={styles.sectionTitle}>About D-Shastho</h2>
+          <p className={styles.sectionSub}>Built in Bangladesh, for Bangladesh's 84 million at-risk diabetics</p>
+        </div>
+        <div className={styles.aboutGrid}>
+          <div className={styles.aboutText}>
+            <p>D-Shastho (ডি-স্বাস্থ্য) is Bangladesh's first complete digital diabetes management platform — combining AI-powered analytics, Bengali-language doctor consultations, and a local food guide, all in one place.</p>
+            <p>We believe every Bangladeshi deserves access to world-class diabetes care, regardless of where they live or what they can afford. That's why we built D-Shastho — affordable, bilingual, and designed for the Bangladeshi lifestyle.</p>
+            <div className={styles.aboutStats}>
+              {[['2026', 'Founded'], ['50,000+', 'Patients Served'], ['200+', 'Expert Doctors'], ['40+', 'Partner Labs']].map(([val, label]) => (
+                <div key={label} className={styles.aboutStat}>
+                  <div className={styles.aboutStatVal}>{val}</div>
+                  <div className={styles.aboutStatLabel}>{label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className={styles.aboutValues}>
+            {[
+              ['🇧🇩', 'Made for Bangladesh', 'Bengali language, local food data, and Bangladeshi doctors — not adapted from abroad.'],
+              ['🤖', 'AI-Powered', 'Machine learning that understands your glucose patterns and gives personalised advice.'],
+              ['🔒', 'Privacy First', 'Your health data is encrypted and never sold. You own your data.'],
+              ['💚','Affordable Care', 'Free tier available. Pro plans starting at ৳299/month — accessible for all.'],
+            ].map(([icon, title, desc]) => (
+              <div key={title} className={styles.valueCard}>
+                <span className={styles.valueIcon}>{icon}</span>
+                <div>
+                  <div className={styles.valueTitle}>{title}</div>
+                  <div className={styles.valueDesc}>{desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CONTACT SECTION */}
+      <section id="contact" className={styles.contact}>
+        <div className={styles.sectionHead}>
+          <h2 className={styles.sectionTitle} style={{color:'white'}}>Get in Touch</h2>
+          <p className={styles.sectionSub} style={{color:'rgba(255,255,255,0.7)'}}>Questions, partnerships, or feedback — we'd love to hear from you</p>
+        </div>
+        <div className={styles.contactGrid}>
+          <div className={styles.contactInfo}>
+            {[
+              ['📍', 'Address', 'Gulshan-2, Dhaka 1212, Bangladesh'],
+              ['📞', 'Phone', '+880 1700-000000'],
+              ['✉️', 'Email', 'hello@d-shastho.com'],
+              ['🕐', 'Support Hours', 'Sat–Thu, 9 AM – 6 PM BST'],
+            ].map(([icon, label, value]) => (
+              <div key={label} className={styles.contactItem}>
+                <span className={styles.contactIcon}>{icon}</span>
+                <div>
+                  <div className={styles.contactLabel}>{label}</div>
+                  <div className={styles.contactValue}>{value}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <form className={styles.contactForm} onSubmit={e => e.preventDefault()}>
+            <div className={styles.formRow}>
+              <input className={styles.contactInput} placeholder="Your Name" />
+              <input className={styles.contactInput} placeholder="Phone / Email" />
+            </div>
+            <select className={styles.contactInput}>
+              <option>General Inquiry</option>
+              <option>Partnership / B2B</option>
+              <option>Doctor Onboarding</option>
+              <option>Technical Support</option>
+              <option>Press / Media</option>
+            </select>
+            <textarea className={styles.contactTextarea} placeholder="Your message..." rows={4} />
+            <button type="submit" className={styles.contactSubmit}>Send Message →</button>
+          </form>
+        </div>
+      </section>
+
       <section className={styles.ctaBanner}>
         <h2>{t('cta_heading')}</h2>
         <p>{t('cta_sub')}</p>

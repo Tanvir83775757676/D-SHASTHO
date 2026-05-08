@@ -30,11 +30,11 @@ Target: Serve Bangladesh's 84 million at-risk diabetics with affordable, Bengali
 ## Architecture
 
 **Stack:**
-- Framework: React + Vite (current) → **Next.js 14 App Router** (migration planned)
+- Framework: **Next.js 14 App Router** (TypeScript)
 - Styling: CSS-in-JS (inline styles), Google Fonts (Fraunces + DM Sans)
 - Bengali Font: **Li Ador Noirrit** (custom, self-hosted) — 10 variants WOFF2 in `public/fonts/`
 - Font Config: `lib/fonts/li-ador-noirrit.ts` → `next/font/local`, CSS var `--font-bengali`
-- Routing: React Router DOM (`/`, `/onboarding`, `/dashboard`)
+- Routing: Next.js App Router (`/landing`, `/onboarding`, `/dashboard`)
 - Backend: Node.js / Express (planned)
 - Database: PostgreSQL + TimescaleDB for time-series glucose data (planned)
 - Cache: Redis (planned)
@@ -47,18 +47,34 @@ Target: Serve Bangladesh's 84 million at-risk diabetics with affordable, Bengali
 ```
 /
 ├── src/
-│   ├── pages/
-│   │   ├── Landing.jsx       # Landing page (EN/BN switcher)
-│   │   ├── Onboarding.jsx    # 4-step onboarding flow
-│   │   └── Dashboard.jsx     # Full dashboard (4 panels)
+│   ├── app/
+│   │   ├── layout.tsx              # Root layout — fonts wired here
+│   │   ├── page.tsx                # Redirect to /landing
+│   │   ├── globals.css             # CSS vars + Tailwind base
+│   │   ├── landing/page.tsx        # Landing route
+│   │   ├── onboarding/page.tsx     # Onboarding route
+│   │   ├── dashboard/page.tsx      # Dashboard route
+│   │   └── api/                    # Route Handlers (planned)
+│   ├── components/
+│   │   ├── pages/                  # Landing.tsx, Dashboard.tsx, Onboarding.tsx
+│   │   ├── panels/                 # 10 dashboard panels (all .tsx)
+│   │   ├── LangSwitcher.tsx
+│   │   └── LogModal.tsx
 │   ├── i18n/
-│   │   └── LanguageContext.jsx  # EN/BN language context + translations
-│   ├── App.jsx               # Router setup
-│   ├── main.jsx              # Entry point
-│   └── index.css             # Global styles
+│   │   └── LanguageContext.tsx     # EN/BN context (617 keys)
+│   └── lib/
+│       ├── db/
+│       │   ├── index.ts            # Edge-compatible Neon/Drizzle client
+│       │   └── schema.ts           # Full Drizzle schema
+│       ├── fonts/
+│       │   └── index.ts            # DM Sans + Fraunces + Ador Noirrit
+│       └── utils.ts                # cn() helper
 ├── public/
-├── index.html
-├── vite.config.js
+│   └── fonts/                      # Li Ador Noirrit WOFF2 (10 variants)
+├── drizzle.config.ts
+├── next.config.ts
+├── tailwind.config.ts
+├── tsconfig.json
 ├── package.json
 ├── PLANNER.md
 └── DESIGN_GUIDE.md
@@ -235,7 +251,7 @@ export const doctors = pgTable('doctors', {
 | 3 | Backend + Auth | ⏳ | Node/Express API, PostgreSQL, phone OTP auth |
 | 4 | AI Integration | ⏳ | AI chat assistant, glucose trend predictions, anomaly alerts |
 | 5 | Marketplace | ⏳ | Real lab booking, doctor consultation payments (bKash/Nagad) |
-| 6 | Next.js Migration | ⏳ | Migrate from Vite to Next.js 14 App Router, integrate Li Ador Noirrit |
+| 6 | Next.js Migration | ✅ | Migrated to Next.js 14 App Router, TypeScript, Tailwind, Lucide icons, Ador Noirrit font wired |
 | 7 | Mobile App | ⏳ | React Native app, push notifications, CGM device sync |
 | 8 | Scale | ⏳ | Insurance partnerships, SAARC expansion (India, Pakistan, Sri Lanka) |
 
@@ -245,8 +261,9 @@ export const doctors = pgTable('doctors', {
 
 > Ordered by priority. Rewritten fresh on each `update repo`.
 
-1. [ ] Begin Next.js 14 App Router migration (Vite → Next.js)
-2. [ ] Set up Node.js/Express backend with PostgreSQL
+1. [ ] Set up Neon PostgreSQL database (run `npm run db:push`)
+2. [ ] Add Vercel env vars: `DATABASE_URL`, `DATABASE_URL_UNPOOLED`, `NEXT_PUBLIC_APP_URL`
+3. [ ] Build API Route Handlers in `src/app/api/`
 3. [ ] Implement phone OTP authentication (Twilio or local SMS gateway)
 4. [ ] Wire glucose logging modal to real API
 5. [ ] Add PDF report generation (server-side, pdf-lib or Puppeteer)
@@ -267,3 +284,4 @@ export const doctors = pgTable('doctors', {
 - **2026-05-08** — Custom Bengali font "Li Ador Noirrit" added (10 variants). TTF→WOFF2 converted, pushed to `public/fonts/`. Next.js font config at `lib/fonts/li-ador-noirrit.ts`, CSS var `--font-bengali`.
 - **2026-05-08** — Decided to migrate from Vite to Next.js 14 App Router.
 - **2026-05-08** — Built all missing panels: LabPanel, MedsPanel, FamilyPanel, EducationPanel, SettingsPanel, NotificationsPanel. Added #about and #contact sections to Landing. All nav items now point to real, working panels.
+- **2026-05-08** — Migrated from Vite + React to Next.js 14 App Router (TypeScript). Replaced all emojis with Lucide icons. Wired Li Ador Noirrit Bengali font via `next/font/local`. Drizzle ORM schema + Neon client scaffolded. All files: 0 TypeScript errors.

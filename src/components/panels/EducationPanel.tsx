@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { Utensils, PersonStanding, Pill, BarChart2, Heart, BedDouble, PlayCircle, BookOpen, Brain, Bookmark, Clock, Trophy, ThumbsUp, ChevronRight } from 'lucide-react'
+import { Utensils, PersonStanding, Pill, BarChart2, Heart, BedDouble, PlayCircle, BookOpen, Brain, Bookmark, Clock, Trophy, ThumbsUp, ChevronRight, Check, X } from 'lucide-react'
 import s from '@/components/panels/EducationPanel.module.css'
 
 const ARTICLES = [
@@ -22,15 +22,15 @@ const VIDEOS = [
 const CATEGORIES = ['All', 'Nutrition', 'Exercise', 'Medication', 'Monitoring', 'Complications', 'Lifestyle']
 
 const QUIZ = [
-  { q: 'What is the normal fasting blood glucose range (mg/dL)?',       options: ['Less than 70', '70–99', '100–125', 'Above 126'], answer: 1 },
-  { q: 'Which type of food has the lowest Glycemic Index (GI)?',         options: ['White rice', 'Brown rice', 'Vegetables', 'White bread'], answer: 2 },
-  { q: 'How often should a Type 2 diabetic check HbA1c?',                options: ['Every month', 'Every 3 months', 'Every 6 months', 'Once a year'], answer: 1 },
+  { q: 'What is the normal fasting blood glucose range (mg/dL)?',  options: ['Less than 70', '70-99', '100-125', 'Above 126'], answer: 1 },
+  { q: 'Which type of food has the lowest Glycemic Index (GI)?',    options: ['White rice', 'Brown rice', 'Vegetables', 'White bread'], answer: 2 },
+  { q: 'How often should a Type 2 diabetic check HbA1c?',           options: ['Every month', 'Every 3 months', 'Every 6 months', 'Once a year'], answer: 1 },
 ]
 
 const TABS = [
-  { id: 'articles', Icon: BookOpen,    label: 'Articles'        },
-  { id: 'videos',   Icon: PlayCircle,  label: 'Videos'          },
-  { id: 'quiz',     Icon: Brain,       label: 'Knowledge Quiz'  },
+  { id: 'articles', Icon: BookOpen,   label: 'Articles'       },
+  { id: 'videos',   Icon: PlayCircle, label: 'Videos'         },
+  { id: 'quiz',     Icon: Brain,      label: 'Knowledge Quiz' },
 ]
 
 export default function EducationPanel() {
@@ -38,20 +38,25 @@ export default function EducationPanel() {
   const [catFilter, setCatFilter] = useState('All')
   const [articles, setArticles] = useState(ARTICLES)
   const [quizStep, setQuizStep] = useState(0)
-  const [quizAnswers, setQuizAnswers] = useState([])
+  const [quizAnswers, setQuizAnswers] = useState<number[]>([])
   const [quizDone, setQuizDone] = useState(false)
 
   const filtered = catFilter === 'All' ? articles : articles.filter(a => a.category === catFilter)
-  const toggleSave = (id) => setArticles(prev => prev.map(a => a.id === id ? { ...a, saved: !a.saved } : a))
+  const toggleSave = (id: number) => setArticles(prev => prev.map(a => a.id === id ? { ...a, saved: !a.saved } : a))
 
-  const handleQuizAnswer = (idx) => {
+  const handleQuizAnswer = (idx: number) => {
     const newAnswers = [...quizAnswers, idx]
     setQuizAnswers(newAnswers)
     if (quizStep < QUIZ.length - 1) { setQuizStep(quizStep + 1) } else { setQuizDone(true) }
   }
 
   const score = quizAnswers.filter((a, i) => a === QUIZ[i]?.answer).length
-  const ResultIcon = () => score === QUIZ.length ? <Trophy size={36} color="#F0A500" /> : score >= 2 ? <ThumbsUp size={36} color="#1A8A5A" /> : <BookOpen size={36} color="#0A6E6E" />
+
+  const ResultIcon = () => {
+    if (score === QUIZ.length) return <Trophy size={36} color="#F0A500" />
+    if (score >= 2) return <ThumbsUp size={36} color="#1A8A5A" />
+    return <BookOpen size={36} color="#0A6E6E" />
+  }
 
   return (
     <div className={s.panel}>
@@ -71,23 +76,26 @@ export default function EducationPanel() {
             ))}
           </div>
           <div className={s.articleGrid}>
-            {filtered.map(article => (
-              <div key={article.id} className={s.articleCard}>
-                <div className={s.articleTop}>
-                  <span className={s.articleCat} style={{ background: article.color + '20', color: article.color }}>{article.category}</span>
-                  <button className={`${s.saveBtn} ${article.saved ? s.saveBtnActive : ''}`} onClick={() => toggleSave(article.id)}>
-                    <Bookmark size={15} fill={article.saved ? 'currentColor' : 'none'} />
-                  </button>
+            {filtered.map(article => {
+              const ArticleIcon = article.Icon
+              return (
+                <div key={article.id} className={s.articleCard}>
+                  <div className={s.articleTop}>
+                    <span className={s.articleCat} style={{ background: article.color + '20', color: article.color }}>{article.category}</span>
+                    <button className={`${s.saveBtn} ${article.saved ? s.saveBtnActive : ''}`} onClick={() => toggleSave(article.id)}>
+                      <Bookmark size={15} fill={article.saved ? 'currentColor' : 'none'} />
+                    </button>
+                  </div>
+                  <div className={s.articleIcon}><ArticleIcon size={28} style={{ color: article.color }} /></div>
+                  <div className={s.articleTitle}>{article.title}</div>
+                  <div className={s.articleDesc}>{article.desc}</div>
+                  <div className={s.articleMeta}>
+                    <span><Clock size={12} /> {article.readTime} read</span>
+                    <button className={s.readBtn}>Read <ChevronRight size={13} /></button>
+                  </div>
                 </div>
-                <div className={s.articleIcon}><article.Icon size={28} style={{color:article.color}} /></div>
-                <div className={s.articleTitle}>{article.title}</div>
-                <div className={s.articleDesc}>{article.desc}</div>
-                <div className={s.articleMeta}>
-                  <span><Clock size={12} /> {article.readTime} read</span>
-                  <button className={s.readBtn}>Read <ChevronRight size={13} /></button>
-                </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       )}
@@ -118,7 +126,7 @@ export default function EducationPanel() {
             <div className={s.quizCard}>
               <div className={s.quizProgress}>Question {quizStep + 1} of {QUIZ.length}</div>
               <div className={s.quizProgressBar}>
-                <div className={s.quizProgressFill} style={{ width: `${((quizStep) / QUIZ.length) * 100}%` }} />
+                <div className={s.quizProgressFill} style={{ width: `${(quizStep / QUIZ.length) * 100}%` }} />
               </div>
               <div className={s.quizQ}>{QUIZ[quizStep].q}</div>
               <div className={s.quizOptions}>
@@ -138,7 +146,7 @@ export default function EducationPanel() {
               <div className={s.resultAnswers}>
                 {QUIZ.map((q, i) => (
                   <div key={i} className={`${s.resultRow} ${quizAnswers[i] === q.answer ? s.resultCorrect : s.resultWrong}`}>
-                    <span>{quizAnswers[i] === q.answer ? '✓' : '✗'}</span>
+                    <span>{quizAnswers[i] === q.answer ? <Check size={13} /> : <X size={13} />}</span>
                     <span>{q.q}</span>
                     <span className={s.resultAns}>Correct: {q.options[q.answer]}</span>
                   </div>

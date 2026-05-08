@@ -1,7 +1,6 @@
 'use client'
 import { useState } from 'react'
 import { Hospital, FlaskConical, TestTube, Droplets, Heart, Eye, Activity, MapPin, Star, AlertTriangle, Clock, Calendar, Check, Hourglass, X } from 'lucide-react'
-import { useLang } from '@/i18n/LanguageContext'
 import s from '@/components/panels/LabPanel.module.css'
 
 const LABS = [
@@ -12,12 +11,12 @@ const LABS = [
 ]
 
 const RECOMMENDED_TESTS = [
-  { Icon: Activity,    name: 'HbA1c',                purpose: 'Average blood sugar over 3 months',  price: '৳650', due: 'Overdue by 2 weeks', urgent: true },
-  { Icon: Droplets,   name: 'Fasting Blood Glucose', purpose: 'Baseline glucose measurement',       price: '৳200', due: 'Due in 3 days',      urgent: false },
-  { Icon: Heart,      name: 'Lipid Profile',         purpose: 'Cholesterol & triglycerides',        price: '৳800', due: 'Due this month',     urgent: false },
-  { Icon: Activity,   name: 'Kidney Function Test',  purpose: 'Creatinine, BUN, eGFR',             price: '৳950', due: 'Due in 2 weeks',     urgent: false },
-  { Icon: Eye,        name: 'Microalbumin (Urine)',  purpose: 'Early kidney damage screening',     price: '৳550', due: 'Due next month',     urgent: false },
-  { Icon: FlaskConical,name:'Thyroid Profile (TSH)', purpose: 'Thyroid function — affects glucose', price: '৳750', due: 'Due next month',     urgent: false },
+  { Icon: Activity,     name: 'HbA1c',                purpose: 'Average blood sugar over 3 months',  price: '650 BDT', due: 'Overdue by 2 weeks', urgent: true  },
+  { Icon: Droplets,     name: 'Fasting Blood Glucose', purpose: 'Baseline glucose measurement',       price: '200 BDT', due: 'Due in 3 days',      urgent: false },
+  { Icon: Heart,        name: 'Lipid Profile',         purpose: 'Cholesterol and triglycerides',      price: '800 BDT', due: 'Due this month',     urgent: false },
+  { Icon: Activity,     name: 'Kidney Function Test',  purpose: 'Creatinine, BUN, eGFR',             price: '950 BDT', due: 'Due in 2 weeks',     urgent: false },
+  { Icon: Eye,          name: 'Microalbumin (Urine)',  purpose: 'Early kidney damage screening',      price: '550 BDT', due: 'Due next month',     urgent: false },
+  { Icon: FlaskConical, name: 'Thyroid Profile (TSH)', purpose: 'Thyroid function — affects glucose', price: '750 BDT', due: 'Due next month',     urgent: false },
 ]
 
 const BOOKED = [
@@ -26,13 +25,12 @@ const BOOKED = [
 ]
 
 const TABS = [
-  { id: 'recommended', Icon: TestTube,  label: 'Recommended Tests' },
-  { id: 'booked',      Icon: Calendar,  label: 'My Bookings' },
-  { id: 'labs',        Icon: Hospital,  label: 'Lab Network' },
+  { id: 'recommended', Icon: TestTube, label: 'Recommended Tests' },
+  { id: 'booked',      Icon: Calendar, label: 'My Bookings'       },
+  { id: 'labs',        Icon: Hospital, label: 'Lab Network'       },
 ]
 
 export default function LabPanel() {
-  const { t } = useLang()
   const [tab, setTab] = useState('recommended')
   const [bookingTest, setBookingTest] = useState(null)
   const [selectedLab, setSelectedLab] = useState(null)
@@ -48,32 +46,38 @@ export default function LabPanel() {
   return (
     <div className={s.panel}>
       <div className={s.tabs}>
-        {TABS.map(({ id, Icon, label }) => (
-          <button key={id} className={`${s.tab} ${tab === id ? s.tabActive : ''}`} onClick={() => setTab(id)}>
-            <Icon size={14} /> {label}
-          </button>
-        ))}
+        {TABS.map(({ id, Icon, label }) => {
+          const TabIcon = Icon
+          return (
+            <button key={id} className={`${s.tab} ${tab === id ? s.tabActive : ''}`} onClick={() => setTab(id)}>
+              <TabIcon size={14} /> {label}
+            </button>
+          )
+        })}
       </div>
 
       {tab === 'recommended' && (
         <div>
           <div className={s.sectionDesc}>Tests recommended by your care team based on your health profile.</div>
           <div className={s.testGrid}>
-            {RECOMMENDED_TESTS.map(test => (
-              <div key={test.name} className={`${s.testCard} ${test.urgent ? s.testUrgent : ''}`}>
-                <div className={s.testTop}>
-                  <span className={s.testIcon}><test.Icon size={20} /></span>
-                  {test.urgent && <span className={s.urgentBadge}><AlertTriangle size={12} /> Overdue</span>}
+            {RECOMMENDED_TESTS.map(test => {
+              const TestIcon = test.Icon
+              return (
+                <div key={test.name} className={`${s.testCard} ${test.urgent ? s.testUrgent : ''}`}>
+                  <div className={s.testTop}>
+                    <span className={s.testIcon}><TestIcon size={20} /></span>
+                    {test.urgent && <span className={s.urgentBadge}><AlertTriangle size={12} /> Overdue</span>}
+                  </div>
+                  <div className={s.testName}>{test.name}</div>
+                  <div className={s.testPurpose}>{test.purpose}</div>
+                  <div className={s.testMeta}>
+                    <span className={s.testPrice}>{test.price}</span>
+                    <span className={`${s.testDue} ${test.urgent ? s.testDueUrgent : ''}`}>{test.due}</span>
+                  </div>
+                  <button className={s.bookBtn} onClick={() => setBookingTest(test)}>Book Now</button>
                 </div>
-                <div className={s.testName}>{test.name}</div>
-                <div className={s.testPurpose}>{test.purpose}</div>
-                <div className={s.testMeta}>
-                  <span className={s.testPrice}>{test.price}</span>
-                  <span className={`${s.testDue} ${test.urgent ? s.testDueUrgent : ''}`}>{test.due}</span>
-                </div>
-                <button className={s.bookBtn} onClick={() => setBookingTest(test)}>Book Now</button>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       )}
@@ -114,23 +118,26 @@ export default function LabPanel() {
         <div>
           <div className={s.sectionDesc}>Partner labs offering discounts for D-Shastho members.</div>
           <div className={s.labGrid}>
-            {LABS.map(lab => (
-              <div key={lab.name} className={s.labCard}>
-                <div className={s.labTop}>
-                  <span className={s.labLogo}><lab.Icon size={22} style={{color:lab.color}} /></span>
-                  <div className={s.labInfo}>
-                    <div className={s.labName}>{lab.name}</div>
-                    <div className={s.labLocations}><MapPin size={12} /> {lab.locations}</div>
+            {LABS.map(lab => {
+              const LabIcon = lab.Icon
+              return (
+                <div key={lab.name} className={s.labCard}>
+                  <div className={s.labTop}>
+                    <span className={s.labLogo}><LabIcon size={22} style={{color:lab.color}} /></span>
+                    <div className={s.labInfo}>
+                      <div className={s.labName}>{lab.name}</div>
+                      <div className={s.labLocations}><MapPin size={12} /> {lab.locations}</div>
+                    </div>
+                    <span className={s.discountBadge}>{lab.discount} OFF</span>
                   </div>
-                  <span className={s.discountBadge}>{lab.discount} OFF</span>
+                  <div className={s.labStats}>
+                    <span><Star size={13} fill="#F0A500" stroke="none" /> {lab.rating}</span>
+                    <span><TestTube size={13} /> {lab.tests}+ tests</span>
+                  </div>
+                  <button className={s.bookBtn}>Browse Tests</button>
                 </div>
-                <div className={s.labStats}>
-                  <span><Star size={13} fill="#F0A500" stroke="none" /> {lab.rating}</span>
-                  <span><TestTube size={13} /> {lab.tests}+ tests</span>
-                </div>
-                <button className={s.bookBtn}>Browse Tests</button>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       )}
@@ -145,16 +152,19 @@ export default function LabPanel() {
             <p className={s.modalDesc}>{bookingTest.purpose}</p>
             <div className={s.modalSection}>Select a Lab:</div>
             <div className={s.labOptions}>
-              {LABS.map(lab => (
-                <button
-                  key={lab.name}
-                  className={`${s.labOption} ${selectedLab === lab.name ? s.labOptionSelected : ''}`}
-                  onClick={() => setSelectedLab(lab.name)}
-                >
-                  <span><lab.Icon size={14} /> {lab.name}</span>
-                  <span className={s.optionDiscount}>{lab.discount} OFF</span>
-                </button>
-              ))}
+              {LABS.map(lab => {
+                const LabIcon = lab.Icon
+                return (
+                  <button
+                    key={lab.name}
+                    className={`${s.labOption} ${selectedLab === lab.name ? s.labOptionSelected : ''}`}
+                    onClick={() => setSelectedLab(lab.name)}
+                  >
+                    <span><LabIcon size={14} /> {lab.name}</span>
+                    <span className={s.optionDiscount}>{lab.discount} OFF</span>
+                  </button>
+                )
+              })}
             </div>
             <div className={s.modalSection}>Select Date:</div>
             <input type="date" className={s.dateInput} defaultValue="2026-05-12" />
@@ -173,7 +183,7 @@ export default function LabPanel() {
       )}
 
       {toast && (
-        <div className={s.toast}><Check size={14} /> Lab test booked successfully! You'll receive an SMS confirmation.</div>
+        <div className={s.toast}><Check size={14} /> Lab test booked successfully! You will receive an SMS confirmation.</div>
       )}
     </div>
   )

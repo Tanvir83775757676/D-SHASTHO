@@ -32,7 +32,6 @@ export default function DoctorsPanel() {
     ['diet',    Utensils,  'doc_perm_diet'],
   ]
 
-  const statusLabel = st => st === 'online' ? t('doc_online') : st === 'busy' ? t('doc_busy') : t('doc_offline')
 
   return (
     <div className={s.panel}>

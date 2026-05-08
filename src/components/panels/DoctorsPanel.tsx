@@ -1,3 +1,4 @@
+import React from 'react'
 'use client'
 import { useState } from 'react'
 import { Hospital, Droplets, BarChart2, Scale, Pill, Utensils, Star } from 'lucide-react'
@@ -24,7 +25,7 @@ export default function DoctorsPanel() {
     { doctorKey:'doc_d3_name', typeKey:'doc_a3_type', timeKey:'doc_a3_time', status:'pending', color:'#5A70C0' },
   ]
 
-  const PERMS = [
+  const PERMS: [string, React.ElementType, string][] = [
     ['glucose', Droplets,  'doc_perm_glucose'],
     ['hba1c',   BarChart2, 'doc_perm_hba1c'],
     ['weight',  Scale,     'doc_perm_weight'],

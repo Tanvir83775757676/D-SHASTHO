@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { dmSans, fraunces, adorNoirrit } from "@/lib/fonts"
+import Chatbot from "@/components/Chatbot"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -17,7 +18,10 @@ export default function RootLayout({
       lang="en"
       className={`${dmSans.variable} ${fraunces.variable} ${adorNoirrit.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        {children}
+        <Chatbot />
+      </body>
     </html>
   )
 }

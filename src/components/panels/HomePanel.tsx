@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { Droplets, Utensils, TrendingUp, Scale, Flame, Timer, Target, AlertTriangle, X, Clock, Check } from 'lucide-react'
 import { useLang } from '@/i18n/LanguageContext'
 import s from '@/components/panels/HomePanel.module.css'
 
@@ -10,10 +11,10 @@ export default function HomePanel() {
   const [showAlert, setShowAlert] = useState(true)
 
   const STATS = [
-    { accent:'teal',  icon:'💧', label:t('hp_stat1_label'), value:'112', unit:t('hp_stat1_unit'), change:t('hp_stat1_change'), type:'good' },
-    { accent:'amber', icon:'🍽️', label:t('hp_stat2_label'), value:'156', unit:t('hp_stat2_unit'), change:t('hp_stat2_change'), type:'good' },
-    { accent:'green', icon:'📈', label:t('hp_stat3_label'), value:'131', unit:t('hp_stat3_unit'), change:t('hp_stat3_change'), type:'good' },
-    { accent:'coral', icon:'⚖️', label:t('hp_stat4_label'), value:'72.4', unit:t('hp_stat4_unit'), change:t('hp_stat4_change'), type:'warn' },
+    { accent:'teal',  Icon:Droplets,   label:t('hp_stat1_label'), value:'112', unit:t('hp_stat1_unit'), change:t('hp_stat1_change'), type:'good' },
+    { accent:'amber', Icon:Utensils,   label:t('hp_stat2_label'), value:'156', unit:t('hp_stat2_unit'), change:t('hp_stat2_change'), type:'good' },
+    { accent:'green', Icon:TrendingUp, label:t('hp_stat3_label'), value:'131', unit:t('hp_stat3_unit'), change:t('hp_stat3_change'), type:'good' },
+    { accent:'coral', Icon:Scale,      label:t('hp_stat4_label'), value:'72.4', unit:t('hp_stat4_unit'), change:t('hp_stat4_change'), type:'warn' },
   ]
 
   const MEDS = [
@@ -23,14 +24,20 @@ export default function HomePanel() {
   ]
 
   const MEALS = [
-    { emoji:'🌾', name:t('hp_meal1_name'), cal:t('hp_meal1_cal'), gi:t('hp_meal1_gi'), giType:'low' },
-    { emoji:'🍛', name:t('hp_meal2_name'), cal:t('hp_meal2_cal'), gi:t('hp_meal2_gi'), giType:'med' },
-    { emoji:'🍎', name:t('hp_meal3_name'), cal:t('hp_meal3_cal'), gi:t('hp_meal3_gi'), giType:'low' },
+    { Icon:Utensils, name:t('hp_meal1_name'), cal:t('hp_meal1_cal'), gi:t('hp_meal1_gi'), giType:'low' },
+    { Icon:Utensils, name:t('hp_meal2_name'), cal:t('hp_meal2_cal'), gi:t('hp_meal2_gi'), giType:'med' },
+    { Icon:Utensils, name:t('hp_meal3_name'), cal:t('hp_meal3_cal'), gi:t('hp_meal3_gi'), giType:'low' },
   ]
 
   const DOCTORS = [
     { name:t('hp_doc1_name'), role:t('hp_doc1_role'), time:t('hp_doc1_time'), status:'online', initial:'S' },
     { name:t('hp_doc2_name'), role:t('hp_doc2_role'), time:t('hp_doc2_time'), status:'busy',   initial:'K' },
+  ]
+
+  const ACTIVITY_STATS = [
+    { Icon:Flame,  label:t('hp_calories'),  value:'320 kcal' },
+    { Icon:Timer,  label:t('hp_duration'),  value:t('hp_48min') },
+    { Icon:Target, label:t('hp_goal'),      value:'68%' },
   ]
 
   const [meds, setMeds] = useState(MEDS)
@@ -44,9 +51,9 @@ export default function HomePanel() {
     <div className={s.panel}>
       {showAlert && (
         <div className={s.alert}>
-          <span>⚠️</span>
+          <AlertTriangle size={16} />
           <span>{t('hp_alert')}</span>
-          <button onClick={() => setShowAlert(false)}>✕</button>
+          <button onClick={() => setShowAlert(false)}><X size={14} /></button>
         </div>
       )}
 
@@ -54,7 +61,7 @@ export default function HomePanel() {
         {STATS.map(st => (
           <div key={st.label} className={`${s.statCard} ${s['accent_'+st.accent]}`}>
             <div className={s.statTop}>
-              <span className={s.statIcon}>{st.icon}</span>
+              <span className={s.statIcon}><st.Icon size={18} /></span>
               <span className={`${s.statChange} ${s['type_'+st.type]}`}>{st.change}</span>
             </div>
             <div className={s.statVal}>{st.value}</div>
@@ -103,10 +110,10 @@ export default function HomePanel() {
                 <text x="40" y="50" textAnchor="middle" fontSize="7" fill="var(--ink-soft)">{t('hp_steps')}</text>
               </svg>
               <div className={s.activityStats}>
-                {[['🔥',t('hp_calories'),'320 kcal'],['⏱️',t('hp_duration'),t('hp_48min')],['🎯',t('hp_goal'),'68%']].map(([ic,lb,vl]) => (
-                  <div key={lb} className={s.actStat}>
-                    <span>{ic}</span>
-                    <div><div className={s.actVal}>{vl}</div><div className={s.actLabel}>{lb}</div></div>
+                {ACTIVITY_STATS.map(({ Icon, label, value }) => (
+                  <div key={label} className={s.actStat}>
+                    <Icon size={15} style={{color:'var(--ink-soft)'}} />
+                    <div><div className={s.actVal}>{value}</div><div className={s.actLabel}>{label}</div></div>
                   </div>
                 ))}
               </div>
@@ -119,7 +126,7 @@ export default function HomePanel() {
               {meds.map((m, i) => (
                 <div key={i} className={`${s.medItem} ${m.done?s.medDone:''}`}>
                   <button className={s.medCheck} style={{borderColor:m.done?m.color:undefined,background:m.done?m.color:undefined}} onClick={() => toggleMed(i)}>
-                    {m.done && '✓'}
+                    {m.done && <Check size={12} color="white" />}
                   </button>
                   <div className={s.medInfo}>
                     <div className={s.medName}>{m.name}</div>
@@ -139,7 +146,7 @@ export default function HomePanel() {
           <div className={s.mealList}>
             {MEALS.map(m => (
               <div key={m.name} className={s.mealItem}>
-                <span className={s.mealEmoji}>{m.emoji}</span>
+                <span className={s.mealEmoji}><m.Icon size={18} style={{color:'var(--ink-soft)'}} /></span>
                 <div className={s.mealInfo}>
                   <div className={s.mealName}>{m.name}</div>
                   <div className={s.mealCal}>{m.cal}</div>
@@ -159,7 +166,7 @@ export default function HomePanel() {
                 <div className={s.docInfo}>
                   <div className={s.docName}>{d.name}</div>
                   <div className={s.docRole}>{d.role}</div>
-                  <div className={s.docTime}>⏰ {d.time}</div>
+                  <div className={s.docTime}><Clock size={12} /> {d.time}</div>
                 </div>
                 <div className={`${s.docStatus} ${s['status_'+d.status]}`}>
                   {d.status === 'online' ? t('hp_online') : t('hp_busy')}
@@ -172,4 +179,3 @@ export default function HomePanel() {
     </div>
   )
 }
-

@@ -49,7 +49,7 @@ export default function NotificationsPanel({ onClose }) {
             <div className={s.empty}>
               <div className={s.emptyIcon}><Bell size={36} strokeWidth={1.2} /></div>
               <div className={s.emptyText}>No notifications</div>
-              <div className={s.emptySub}>You're all caught up!</div>
+              <div className={s.emptySub}>You&apos;re all caught up!</div>
             </div>
           ) : (
             notifs.map(n => {
